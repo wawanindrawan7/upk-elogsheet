@@ -13,11 +13,16 @@ use App\Http\Controllers\PLTSLogsheetController;
 use App\Http\Controllers\PLTDAmpController;
 use App\Http\Controllers\PLTDOgfCrLogController;
 use App\Http\Controllers\PLTDOgfSgLogController;
+use App\Http\Controllers\PLTDPMController;
+use App\Http\Controllers\PLTDPMOgfLogController;
+use App\Http\Controllers\PLTDPMZVEngLogController;
+use App\Http\Controllers\PLTDPMZVGenLogController;
 use App\Http\Controllers\PLTDZAVCmrLogController;
 use App\Http\Controllers\PLTDZAVEngLogController;
 use App\Http\Controllers\PLTDZAVGenLogController;
 use App\Http\Controllers\PLTDZVEngLogController;
 use App\Http\Controllers\PLTDZVGenLogController;
+use App\Models\PLTDPMZVEngLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -54,9 +59,10 @@ Route::group(['prefix' => 'pltd-amp', 'middleware' => 'auth'], function () {
     Route::get('zv/eng-log', [PLTDZVEngLogController::class, 'view']);
     Route::get('zv/eng-log/load-data', [PLTDZVEngLogController::class, 'loadData']);
 
-    Route::get('zv/gen-log', [PLTDZVGenLogController::class, 'view']);
-    Route::get('zv/gen-log/load-data', [PLTDZVGenLogController::class, 'loadData']);
-    Route::get('zv/gen-log/detail', [PLTDZVGenLogController::class, 'detail']);
+    Route::get('zv/gen-log', [PLTDPMZVGenLogController::class, 'view']);
+    Route::get('zv/gen-log/load-data', [PLTDPMZVGenLogController::class, 'loadData']);
+    Route::get('zv/gen-log/detail', [PLTDPMZVGenLogController::class, 'detail']);
+
     Route::get('zv/export', [PLTDAmpController::class, 'zvExport']);
 
     Route::get('zav/eng-log', [PLTDZAVEngLogController::class, 'view']);
@@ -87,25 +93,53 @@ Route::group(['prefix' => 'pltd-amp', 'middleware' => 'auth'], function () {
     Route::get('ogf/export', [PLTDAmpController::class, 'ogfExport']);
 });
 
+Route::group(['prefix' => 'pltd-pm', 'middleware' => 'auth'], function () {
+    Route::get('/', [PLTDPMController::class, 'index']);
+
+    Route::get('zv/eng-log', [PLTDPMZVEngLogController::class, 'view']);
+    Route::get('zv/eng-log/detail', [PLTDPMZVEngLogController::class, 'detail']);
+    Route::get('zv/eng-log/load-data', [PLTDPMZVEngLogController::class, 'loadData']);
+
+    Route::get('zv/gen-log', [PLTDPMZVGenLogController::class, 'view']);
+    Route::get('zv/gen-log/load-data', [PLTDPMZVGenLogController::class, 'loadData']);
+    Route::get('zv/gen-log/detail', [PLTDPMZVGenLogController::class, 'detail']);
+
+    Route::get('zv/export', [PLTDPMController::class, 'zvExport']);
+
+    Route::get('ogf', [PLTDPMOgfLogController::class, 'view']);
+    Route::get('ogf/load-data', [PLTDPMOgfLogController::class, 'loadData']);
+    Route::get('ogf/detail', [PLTDPMOgfLogController::class, 'detail']);
+    Route::post('ogf/create', [PLTDPMOgfLogController::class, 'create']);
+
+    Route::get('ogf/export', [PLTDPMController::class, 'ogfExport']);
+});
+
 Route::group(['prefix' => 'plts', 'middleware' => 'auth'], function () {
     // Route::get('/', [LogsheetController::class, 'niigataDashboard']);
     Route::get('log', [PLTSLogsheetController::class, 'view']);
+    Route::get('home', [PLTSLogsheetController::class, 'home']);
     Route::get('log/load-data', [PLTSLogsheetController::class, 'loadData']);
     Route::get('log/export', [PLTSLogsheetController::class, 'export']);
+    Route::get('log/export-all', [PLTSLogsheetController::class, 'exportAll']);
 });
 
 Route::group(['prefix' => 'plts-gm', 'middleware' => 'auth'], function () {
     // Route::get('/', [LogsheetController::class, 'niigataDashboard']);
     Route::get('log', [PLTSGMLogsheetController::class, 'view']);
+    Route::get('home', [PLTSGMLogsheetController::class, 'home']);
     Route::get('log/load-data', [PLTSGMLogsheetController::class, 'loadData']);
     Route::get('log/export', [PLTSGMLogsheetController::class, 'export']);
+    Route::get('log/export-all', [PLTSGMLogsheetController::class, 'exportAll']);
+
 });
 
 Route::group(['prefix' => 'plts-ga', 'middleware' => 'auth'], function () {
     // Route::get('/', [LogsheetController::class, 'niigataDashboard']);
     Route::get('log', [PLTSGALogsheetController::class, 'view']);
+    Route::get('home', [PLTSGALogsheetController::class, 'home']);
     Route::get('log/load-data', [PLTSGALogsheetController::class, 'loadData']);
     Route::get('log/export', [PLTSGALogsheetController::class, 'export']);
+    Route::get('log/export-all', [PLTSGALogsheetController::class, 'exportAll']);
 });
 
 Route::group(['prefix' => 'pltmh-santong', 'middleware' => 'auth'], function () {

@@ -4,18 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Models\PLTSGMLogsheet;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PLTSGMLogsheetController extends Controller
 {
     public function view(Request $r)
     {
-        return view('plts-gm.log');
+        $inverter_id = $r->inverter_id;
+        return view('plts-gm.log', compact('inverter_id'));
+    }
+
+    public function home(){
+        return view('plts-gm.plts-gm-home');
     }
 
     public function loadData(Request $r)
     {
-        $log = PLTSGMLogsheet::all();
-        return compact('log');
+        if($r->date == null){
+			$log = PLTSGMLogsheet::with('users')->with('pltsGmInverter')->where('plts_gm_inverter_id', $r->inverter_id)->get();
+		}else{
+			$log = PLTSGMLogsheet::with('users')->with('pltsGmInverter')->where('tanggal', $r->date)->where('plts_gm_inverter_id', $r->inverter_id)->get();
+		}
+		return compact('log');
     }
 
     public function create(Request $in)
@@ -49,8 +59,97 @@ class PLTSGMLogsheetController extends Controller
         $log->temp_ambien = $in['temp_ambien'];
         $log->kwh_ps = $in['kwh_ps'];
         $log->ket = $in['ket'];
-        // $log->plts_gm_pl_id = $in['pl_id'];
+        $log->plts_gm_inverter_id = $in['plts_gm_inverter_id'];
         $log->save();
         return 'success';
+    }
+
+    public function export(Request $r){
+        {
+            $reader = IOFactory::createReader('Xlsx');
+            //load file template
+            $excel = $reader->load('plts-gm.xlsx');
+            //sheet yg di tuju
+            $unit = PLTSGMLogsheet::find($r->unit_id);
+            // Unit1LogBoilerFans
+            $excel->setActiveSheetIndex(0);
+            // where('tanggal', $r->date)->
+            $log = PLTSGMLogsheet::where('tanggal', $r->date)->orderBy('jam','asc')->get();
+            // return $eng_logs;
+            $data = [];
+            for ($i = 0; $i < count($log); $i++) {
+                array_push($data, [
+                    $log[$i]['jam'], $log[$i]['pv_modul_volt'], $log[$i]['pv_modul_curr'],
+                    $log[$i]['pv_modul_power'], $log[$i]['pv_modul_today'], $log[$i]['pv_modul_acc'],
+                    $log[$i]['irradians'], $log[$i]['irradiations'], $log[$i]['grid_volt_r'],
+                    $log[$i]['grid_volt_s'], $log[$i]['grid_volt_t'], $log[$i]['grid_curr_r'],
+                    $log[$i]['grid_curr_s'], $log[$i]['grid_curr_t'], $log[$i]['grid_power_r'],
+                    $log[$i]['grid_power_s'], $log[$i]['grid_power_t'], $log[$i]['freq'],
+                    $log[$i]['gen_power'], $log[$i]['energy_today'], $log[$i]['energy_acc'],
+                    $log[$i]['energy_eb'], $log[$i]['temp_pv'], $log[$i]['temp_ambien'], $log[$i]['kwh_ps'],
+                    $log[$i]['real_time'], '', $log[$i]->ket]);
+            }
+            $excel->getActiveSheet()->fromArray($data, null, 'A11', false, false);
+
+                $filename = 'PLTS Gili Meno Logs - ' . $r->date;
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+                $writer = IOFactory::createWriter($excel, 'Xlsx');
+                $writer->save('php://output');
+        }
+    }
+
+    public function exportAll(Request $r){
+        {
+            $reader = IOFactory::createReader('Xlsx');
+            //load file template
+            $excel = $reader->load('plts-gm-all.xlsx');
+            //sheet yg di tuju
+            $unit = PLTSGMLogsheet::find($r->unit_id);
+            // Unit1LogBoilerFans
+            $excel->setActiveSheetIndex(0);
+            // where('tanggal', $r->date)->
+            $log = PLTSGMLogsheet::where('tanggal', $r->date)->where('plts_gm_inverter_id', 1)->orderBy('jam','asc')->get();
+            // return $eng_logs;
+            $data = [];
+            for ($i = 0; $i < count($log); $i++) {
+                array_push($data, [
+                    $log[$i]['jam'], $log[$i]['pv_modul_volt'], $log[$i]['pv_modul_curr'],
+                    $log[$i]['pv_modul_power'], $log[$i]['pv_modul_today'], $log[$i]['pv_modul_acc'],
+                    $log[$i]['irradians'], $log[$i]['irradiations'], $log[$i]['grid_volt_r'],
+                    $log[$i]['grid_volt_s'], $log[$i]['grid_volt_t'], $log[$i]['grid_curr_r'],
+                    $log[$i]['grid_curr_s'], $log[$i]['grid_curr_t'], $log[$i]['grid_power_r'],
+                    $log[$i]['grid_power_s'], $log[$i]['grid_power_t'], $log[$i]['freq'],
+                    $log[$i]['gen_power'], $log[$i]['energy_today'], $log[$i]['energy_acc'],
+                    $log[$i]['energy_eb'], $log[$i]['temp_pv'], $log[$i]['temp_ambien'], $log[$i]['kwh_ps'],
+                    $log[$i]['real_time'], '', $log[$i]->ket]);
+            }
+            $excel->getActiveSheet()->fromArray($data, null, 'A11', false, false);
+
+            $excel->setActiveSheetIndex(1);
+            // where('tanggal', $r->date)->
+            $log = PLTSGMLogsheet::where('tanggal', $r->date)->where('plts_gm_inverter_id', 2)->orderBy('jam','asc')->get();
+            // return $eng_logs;
+            $data = [];
+            for ($i = 0; $i < count($log); $i++) {
+                array_push($data, [
+                    $log[$i]['jam'], $log[$i]['pv_modul_volt'], $log[$i]['pv_modul_curr'],
+                    $log[$i]['pv_modul_power'], $log[$i]['pv_modul_today'], $log[$i]['pv_modul_acc'],
+                    $log[$i]['irradians'], $log[$i]['irradiations'], $log[$i]['grid_volt_r'],
+                    $log[$i]['grid_volt_s'], $log[$i]['grid_volt_t'], $log[$i]['grid_curr_r'],
+                    $log[$i]['grid_curr_s'], $log[$i]['grid_curr_t'], $log[$i]['grid_power_r'],
+                    $log[$i]['grid_power_s'], $log[$i]['grid_power_t'], $log[$i]['freq'],
+                    $log[$i]['gen_power'], $log[$i]['energy_today'], $log[$i]['energy_acc'],
+                    $log[$i]['energy_eb'], $log[$i]['temp_pv'], $log[$i]['temp_ambien'], $log[$i]['kwh_ps'],
+                    $log[$i]['real_time'], '', $log[$i]->ket]);
+            }
+            $excel->getActiveSheet()->fromArray($data, null, 'A11', false, false);
+
+                $filename = 'PLTS Gili Meno Logs - ' . $r->date;
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+                $writer = IOFactory::createWriter($excel, 'Xlsx');
+                $writer->save('php://output');
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PLTMHNarmadaLogsheet;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PLTMHNarmadaLogsheetController extends Controller
 {
@@ -50,5 +51,38 @@ class PLTMHNarmadaLogsheetController extends Controller
         // $log->pltmh_pengga_pl_id = $in['pl_id'];
         $log->save();
         return 'success';
+    }
+
+    public function export(Request $r){
+        {
+            $reader = IOFactory::createReader('Xlsx');
+            //load file template
+            $excel = $reader->load('narmada.xlsx');
+            //sheet yg di tuju
+            $unit = PLTMHNarmadaLogsheet::find($r->unit_id);
+            // Unit1LogBoilerFans
+            $excel->setActiveSheetIndex(0);
+            // where('tanggal', $r->date)->
+            $log = PLTMHNarmadaLogsheet::where('tanggal', $r->date)->orderBy('jam','asc')->get();
+            // return $eng_logs;
+            $data = [];
+            for ($i = 0; $i < count($log); $i++) {
+                array_push($data, [
+                    $log[$i]['jam'], $log[$i]['tek_air_turbin'], $log[$i]['gen_speed']
+                    , $log[$i]['vol_gen_rs'], $log[$i]['vol_gen_st'], $log[$i]['vol_gen_tr'], $log[$i]['arus_gen_r']
+                    , $log[$i]['arus_gen_s'], $log[$i]['arus_gen_t'], $log[$i]['beban'], $log[$i]['cos_q'],
+                    $log[$i]['freq'], $log[$i]['excit_teg'], $log[$i]['excit_arus'], $log[$i]['kwh_prod_exp'],
+                    $log[$i]['kwh_prod_imp'], $log[$i]['temp_bearing_1'], $log[$i]['temp_bearing_2'],
+                    $log[$i]['temp_gear_box'], $log[$i]['temp_wind_gen'], $log[$i]['level_air'], $log[$i]['debit'],
+                    $log[$i]['kwh_ps'], $log[$i]['real_time'], '', $log[$i]->ket]);
+            }
+            $excel->getActiveSheet()->fromArray($data, null, 'A15', false, false);
+
+                $filename = 'PLTMH Narmada Logs - ' . $r->date;
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+                $writer = IOFactory::createWriter($excel, 'Xlsx');
+                $writer->save('php://output');
+        }
     }
 }

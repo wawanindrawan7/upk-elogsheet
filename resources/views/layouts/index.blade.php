@@ -83,12 +83,13 @@
 
 
               <li><a class="nav-link" href="{{ url('pltd-amp') }}"><i class="far fa-square"></i> <span>PLTD Ampenan</span></a></li>
+              <li><a class="nav-link" href="{{ url('pltd-pm') }}"><i class="far fa-square"></i> <span>PLTD Paok Motong</span></a></li>
               <li><a class="nav-link" href="{{ url('pltmh-narmada/log') }}"><i class="far fa-square"></i> <span>PLTMH Narmada</span></a></li>
               <li><a class="nav-link" href="{{ url('pltmh-pengga/log') }}"><i class="far fa-square"></i> <span>PLTMH Pengga</span></a></li>
               <li><a class="nav-link" href="{{ url('pltmh-santong/log') }}"><i class="far fa-square"></i> <span>PLTMH Santong</span></a></li>
-              <li><a class="nav-link" href="{{ url('plts/log') }}"><i class="far fa-square"></i> <span>PLTS Gili Trawangan</span></a></li>
-              <li><a class="nav-link" href="{{ url('plts-gm/log') }}"><i class="far fa-square"></i> <span>PLTS Gili Meno</span></a></li>
-              <li><a class="nav-link" href="{{ url('plts-ga/log') }}"><i class="far fa-square"></i> <span>PLTS Gili Air</span></a></li>
+              <li><a class="nav-link" href="{{ url('plts/home') }}"><i class="far fa-square"></i> <span>PLTS Gili Trawangan</span></a></li>
+              <li><a class="nav-link" href="{{ url('plts-gm/home') }}"><i class="far fa-square"></i> <span>PLTS Gili Meno</span></a></li>
+              <li><a class="nav-link" href="{{ url('plts-ga/home') }}"><i class="far fa-square"></i> <span>PLTS Gili Air</span></a></li>
 
 
               <li class="nav-item dropdown">

@@ -10,4 +10,12 @@ class PLTSGALogsheet extends Model
     use HasFactory;
     protected $table = 'plts_gili_air_logsheet';
     public $timestamps = false;
+
+    public function pltsGaInverter(){
+        return $this->belongsTo('App\Models\PLTSGAInverter');
+    }
+
+    public function users(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

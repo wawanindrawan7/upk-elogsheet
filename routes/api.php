@@ -5,6 +5,9 @@ use App\Http\Controllers\PLTDNiigataEngLogController;
 use App\Http\Controllers\PLTDNiigataGenLogController;
 use App\Http\Controllers\PLTDOgfCrLogController;
 use App\Http\Controllers\PLTDOgfSgLogController;
+use App\Http\Controllers\PLTDPMOgfLogController;
+use App\Http\Controllers\PLTDPMZVEngLogController;
+use App\Http\Controllers\PLTDPMZVGenLogController;
 use App\Http\Controllers\PLTDZAVCmrLogController;
 use App\Http\Controllers\PLTDZAVEngLogController;
 use App\Http\Controllers\PLTDZAVGenLogController;
@@ -74,6 +77,18 @@ Route::post('pltd-amp/ogf/cr-log/create', [PLTDOgfCrLogController::class, 'creat
 Route::get('pltd-amp/ogf/sg-log', [PLTDOgfSgLogController::class, 'loadData']);
 Route::get('pltd-amp/ogf/sg-log/detail', [PLTDOgfSgLogController::class, 'detail']);
 Route::post('pltd-amp/ogf/sg-log/create', [PLTDOgfSgLogController::class, 'create']);
+
+Route::get('pltd-pm/zv/gen-log', [PLTDPMZVGenLogController::class, 'loadData']);
+Route::get('pltd-pm/zv/gen-log/detail', [PLTDPMZVGenLogController::class, 'detail']);
+Route::post('pltd-pm/zv/gen-log/create', [PLTDPMZVGenLogController::class, 'create']);
+
+Route::get('pltd-pm/zv/eng-log', [PLTDPMZVEngLogController::class, 'loadData']);
+Route::get('pltd-pm/zv/eng-log/detail', [PLTDPMZVEngLogController::class, 'detail']);
+Route::post('pltd-pm/zv/eng-log/create', [PLTDPMZVEngLogController::class, 'create']);
+
+Route::get('pltd-pm/ogf-log', [PLTDPMOgfLogController::class, 'loadData']);
+Route::get('pltd-pm/ogf-log/detail', [PLTDPMOgfLogController::class, 'detail']);
+Route::post('pltd-pm/ogf-log/create', [PLTDPMOgfLogController::class, 'create']);
 
 
 Route::get('plts/log', [PLTSLogsheetController::class, 'loadData']);
