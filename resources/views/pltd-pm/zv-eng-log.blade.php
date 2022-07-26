@@ -94,8 +94,7 @@
                         d.air_pen_inj_mas,
                         d.air_pen_inj_kel,
                         d.time_check,
-                        // d.users.name,
-                        '',
+                        d.users.name,
                         ''
                     ])
                 })

@@ -21,7 +21,7 @@ class PLTDPMController extends Controller
 
         $reader = IOFactory::createReader('Xlsx');
         //load file template
-        $excel = $reader->load('pltd-paok-motong/zv-gen-log.xlsx');
+        $excel = $reader->load('pm-zv-log.xlsx');
         //sheet yg di tuju
         $unit = PLTDPMUnit::find($r->unit_id);
         // return $unit;
@@ -52,6 +52,12 @@ class PLTDPMController extends Controller
 				$l->air_pen_kel_silsis_4a,
 				$l->air_pen_kel_silsis_5a,
 				$l->air_pen_kel_silsis_6a,
+				$l->air_pen_kel_silsis_1b,
+				$l->air_pen_kel_silsis_2b,
+				$l->air_pen_kel_silsis_3b,
+				$l->air_pen_kel_silsis_4b,
+				$l->air_pen_kel_silsis_5b,
+				$l->air_pen_kel_silsis_6b,
 				$l->gas_buang_kel_silsis_1a,
 				$l->gas_buang_kel_silsis_2a,
 				$l->gas_buang_kel_silsis_3a,
@@ -84,6 +90,8 @@ class PLTDPMController extends Controller
 				$l->rack_bahan_bakar,
 				$l->gov_load_limit,
 				$l->tek_udara_start,
+				$l->tek_pres_udmas_sisi_a,
+				$l->tek_pres_udmas_sisi_b,
 				$l->tek_udara_masuk_a_b,
 				$l->tek_bah_bak_mas_mes,
 				$l->tek_minyak_pelumas,
@@ -98,8 +106,9 @@ class PLTDPMController extends Controller
 				$l->ampere_pompa_jw,
 				$l->sikap_flow_meter_bahan_bakar_in,
 				$l->sikap_flow_meter_bahan_bakar_return,
+				$l->sikap_flow_meter_bahan_bakar_hsd,
 				$l->time_check,
-				'',
+				$l->users->name,
 				));
         }
         $excel->getActiveSheet()->fromArray($data, null, 'A15', false, false);
@@ -124,11 +133,12 @@ class PLTDPMController extends Controller
 				$l->winding_2,
 				$l->winding_3,
 				$l->bearing,
-				$l->kwh_produksi_total,
+				$l->kwh_produksi_hsd,
+				$l->kwh_produksi_mfo,
 				$l->kwh_alat_bantu,
 				$l->level_becoms,
 				$l->time_check,
-				''
+				$l->users->name,
 				));
         }
         $excel->getActiveSheet()->fromArray($data, null, 'A20', false, false);
