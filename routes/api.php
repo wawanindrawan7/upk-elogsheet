@@ -78,6 +78,8 @@ Route::get('pltd-amp/ogf/sg-log', [PLTDOgfSgLogController::class, 'loadData']);
 Route::get('pltd-amp/ogf/sg-log/detail', [PLTDOgfSgLogController::class, 'detail']);
 Route::post('pltd-amp/ogf/sg-log/create', [PLTDOgfSgLogController::class, 'create']);
 
+Route::get('pltd-pm/unit/get-data', [LoginController::class, 'pltdPmUnit']);
+
 Route::get('pltd-pm/zv/gen-log', [PLTDPMZVGenLogController::class, 'loadData']);
 Route::get('pltd-pm/zv/gen-log/detail', [PLTDPMZVGenLogController::class, 'detail']);
 Route::post('pltd-pm/zv/gen-log/create', [PLTDPMZVGenLogController::class, 'create']);

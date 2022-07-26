@@ -104,7 +104,8 @@ class PLTDPMOgfLogController extends Controller
 		$log->set_mw = $in['set_mw'];
 		$log->set_exp = $in['set_exp'];
 		$log->set_imp = $in['set_imp'];
-		$log->pltd_pm_unit_id = $in['pl_id'];
+		$log->pltd_pm_unit_id = $in['pltd_pm_unit_id'];
+		$log->users_id = $in['users_id'];
         $log->save();
         return 'success';
     }

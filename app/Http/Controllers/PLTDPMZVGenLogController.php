@@ -30,7 +30,7 @@ class PLTDPMZVGenLogController extends Controller
     public function create(Request $in){
         $log = new PLTDPMZVGenLog();
 		$log->jam = $in['jam'];
-		$log->unit_no = $in['unit_no'];
+		$log->pltd_pm_unit_id = $in['pltd_pm_unit_id'];
 		$log->teg = $in['teg'];
 		$log->freq = $in['freq'];
 		$log->faktor_daya = $in['faktor_daya'];
@@ -44,12 +44,13 @@ class PLTDPMZVGenLogController extends Controller
 		$log->winding_2 = $in['winding_2'];
 		$log->winding_3 = $in['winding_3'];
 		$log->bearing = $in['bearing'];
-		$log->kwh_produksi_total = $in['kwh_produksi_total'];
+		$log->kwh_produksi_hsd = $in['kwh_produksi_hsd'];
+		$log->kwh_produksi_mfo = $in['kwh_produksi_mfo'];
 		$log->kwh_alat_bantu = $in['kwh_alat_bantu'];
 		$log->level_becoms = $in['level_becoms'];
 		$log->time_check = date("Y-m-d H:i:s");
 		$log->tanggal = date("Y-m-d");
-		$log->pltd_pm_unit_id = $in['pl_id'];
+		$log->users_id = $in['users_id'];
         $log->save();
         return 'success';
     }

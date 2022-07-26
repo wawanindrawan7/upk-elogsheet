@@ -33,6 +33,8 @@ PLTD PAOK MOTONG
                                 data-toggle="list" href="#list-2" role="tab" aria-selected="false">Unit #2</a>
                             <a class="list-group-item list-group-item-action" id="list-3-list" data-toggle="list"
                                 href="#list-3" role="tab" aria-selected="false">Unit #3</a>
+                            <a class="list-group-item list-group-item-action" id="list-4-list" data-toggle="list"
+                                href="#list-4" role="tab" aria-selected="false">Unit #4</a>
                             <a class="list-group-item list-group-item-action" id="list-ogf-list" data-toggle="list"
                                 href="#list-ogf" role="tab">Out Going Feeder</a>
                         </div>
@@ -88,6 +90,37 @@ PLTD PAOK MOTONG
                                         </div>
                                         <div class="wizard-step-label">
                                             <a href="{{ url('pltd-pm/zv/gen-log?unit_id=2') }}" class="text-white">ZV
+                                                GENERATOR LOGS</a>
+                                        </div>
+                                    </div>
+                                    <div class="wizard-step wizard-step-active">
+                                        <div class="wizard-step-icon">
+                                            <i class="fas fa-file-excel"></i>
+                                        </div>
+                                        <div class="wizard-step-label">
+                                            <a href="#" class="btn-export" data-cat="zv" data-unit_id="2"
+                                                style="color: white;">EXPORT</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="list-4" role="tabpanel" aria-labelledby="list-profile-list">
+                                <div class="wizard-steps">
+                                    <div class="wizard-step wizard-step-active">
+                                        <div class="wizard-step-icon">
+                                            <i class="fas fa-cog"></i>
+                                        </div>
+                                        <div class="wizard-step-label">
+                                            <a href="{{ url('pltd-pm/zv/gen-log?unit_id=3') }}" class="text-white">ZV
+                                                EGNINE LOGS</a>
+                                        </div>
+                                    </div>
+                                    <div class="wizard-step wizard-step-active">
+                                        <div class="wizard-step-icon">
+                                            <i class="fas fa-cog"></i>
+                                        </div>
+                                        <div class="wizard-step-label">
+                                            <a href="{{ url('pltd-pm/zv/gen-log?unit_id=3') }}" class="text-white">ZV
                                                 GENERATOR LOGS</a>
                                         </div>
                                     </div>

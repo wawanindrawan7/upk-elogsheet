@@ -30,7 +30,8 @@ class PLTDPMZVEngLogController extends Controller
     public function create(Request $in){
         $log = new PLTDPMZVEngLog();
 		$log->jam = $in['jam'];
-		$log->unit_no = $in['unit_no'];
+		$log->users_id = $in['users_id'];
+		$log->pltd_pm_unit_id = $in['pltd_pm_unit_id'];
 		$log->udmas_sisi_a = $in['udmas_sisi_a'];
 		$log->udmas_sisi_b = $in['udmas_sisi_b'];
 		$log->oli_masmes_a = $in['oli_masmes_a'];
@@ -87,6 +88,8 @@ class PLTDPMZVEngLogController extends Controller
 		$log->rack_bahan_bakar = $in['rack_bahan_bakar'];
 		$log->gov_load_limit = $in['gov_load_limit'];
 		$log->tek_udara_start = $in['tek_udara_start'];
+		$log->tek_pres_udmas_sisi_a = $in['tek_pres_udmas_sisi_a'];
+		$log->tek_pres_udmas_sisi_b = $in['tek_pres_udmas_sisi_b'];
 		$log->tek_udara_masuk_a_b = $in['tek_udara_masuk_a_b'];
 		$log->tek_bah_bak_mas_mes = $in['tek_bah_bak_mas_mes'];
 		$log->tek_minyak_pelumas = $in['tek_minyak_pelumas'];
@@ -101,9 +104,10 @@ class PLTDPMZVEngLogController extends Controller
 		$log->ampere_pompa_jw = $in['ampere_pompa_jw'];
 		$log->sikap_flow_meter_bahan_bakar_in = $in['sikap_flow_meter_bahan_bakar_in'];
 		$log->sikap_flow_meter_bahan_bakar_return = $in['sikap_flow_meter_bahan_bakar_return'];
+		$log->sikap_flow_meter_bahan_bakar_hsd = $in['sikap_flow_meter_bahan_bakar_hsd'];
 		$log->tanggal = date("Y-m-d");
 		$log->time_check = date("Y-m-d H:i:s");
-		$log->pltd_pm_unit_id = $in['pl_id'];
+		// $log->pltd_pl_id = $in['pltd_pl_id'];
         $log->save();
         return 'success';
     }
