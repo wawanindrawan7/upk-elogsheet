@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\PLTDPMUnit;
 use App\Models\PLTDUnit;
+use App\Models\PLTSGAInverter;
+use App\Models\PLTSGMInverter;
+use App\Models\PLTSInverter;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -58,5 +61,20 @@ class LoginController extends Controller
     public function pltdPmUnit(){
         $unit = PLTDPMUnit::all();
         return compact('unit');
+    }
+
+    public function pltsInverter(){
+        $inverter = PLTSInverter::all();
+        return compact('inverter');
+    }
+
+    public function pltsGaInverter(){
+        $inverter = PLTSGAInverter::all();
+        return compact('inverter');
+    }
+
+    public function pltsGmInverter(){
+        $inverter = PLTSGMInverter::all();
+        return compact('inverter');
     }
 }

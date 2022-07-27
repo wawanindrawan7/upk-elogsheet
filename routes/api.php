@@ -92,14 +92,22 @@ Route::get('pltd-pm/ogf-log', [PLTDPMOgfLogController::class, 'loadData']);
 Route::get('pltd-pm/ogf-log/detail', [PLTDPMOgfLogController::class, 'detail']);
 Route::post('pltd-pm/ogf-log/create', [PLTDPMOgfLogController::class, 'create']);
 
+Route::get('plts/inverter/get-data', [LoginController::class, 'pltsInverter']);
 
 Route::get('plts/log', [PLTSLogsheetController::class, 'loadData']);
+Route::get('plts/log/detail', [PLTSLogsheetController::class, 'detail']);
 Route::post('plts/log/create', [PLTSLogsheetController::class, 'create']);
 
+Route::get('plts-gm/inverter/get-data', [LoginController::class, 'pltsGmInverter']);
+
 Route::get('plts-gm/log', [PLTSGMLogsheetController::class, 'loadData']);
+Route::get('plts-gm/log/detail', [PLTSGMLogsheetController::class, 'detail']);
 Route::post('plts-gm/log/create', [PLTSGMLogsheetController::class, 'create']);
 
+Route::get('plts-ga/inverter/get-data', [LoginController::class, 'pltsGaInverter']);
+
 Route::get('plts-ga/log', [PLTSGALogsheetController::class, 'loadData']);
+Route::get('plts-ga/log/detail', [PLTSGALogsheetController::class, 'detail']);
 Route::post('plts-ga/log/create', [PLTSGALogsheetController::class, 'create']);
 
 Route::get('pltmh-santong/log', [PLTMHSantongLogsheetController::class, 'loadData']);

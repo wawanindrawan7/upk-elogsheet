@@ -22,12 +22,17 @@ class PLTSGALogsheetController extends Controller
     public function loadData(Request $r)
     {
         if($r->date == null){
-			$log = PLTSGALogsheet::with('users')->with('pltsGaInverter')->where('plts_gili_air_inverter_id', $r->inverter_id)->get();
+			$log = PLTSGALogsheet::with('users')->with('pltsGiliAirInverter')->where('plts_gili_air_inverter_id', $r->inverter_id)->get();
 		}else{
-			$log = PLTSGALogsheet::with('users')->with('pltsGaInverter')->where('tanggal', $r->date)->where('plts_gili_air_inverter_id', $r->inverter_id)->get();
+			$log = PLTSGALogsheet::with('users')->with('pltsGiliAirInverter')->where('tanggal', $r->date)->where('plts_gili_air_inverter_id', $r->inverter_id)->get();
 		}
 		return compact('log');
     }
+
+    public function detail(Request $r){
+		$log = PLTSGALogsheet::with('users')->with('pltsGiliAirInverter')->find($r->id);
+		return $log;
+	}
 
     public function create(Request $in)
     {
@@ -61,7 +66,7 @@ class PLTSGALogsheetController extends Controller
         $log->kwh_ps = $in['kwh_ps'];
         $log->ket = $in['ket'];
         $log->plts_gili_air_inverter_id = $in['plts_gili_air_inverter_id'];
-        // $log->plts_gili_air_pl_id = $in['pl_id'];
+        $log->users_id = $in['users_id'];
         $log->save();
         return 'success';
     }

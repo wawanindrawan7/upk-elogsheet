@@ -28,6 +28,11 @@ class PLTSLogsheetController extends Controller
 		return compact('log');
     }
 
+    public function detail(Request $r){
+		$log = PLTSLogsheet::with('users')->with('pltsInverter')->find($r->id);
+		return $log;
+	}
+
     // function create
     public function create(Request $in)
     {
@@ -61,7 +66,7 @@ class PLTSLogsheetController extends Controller
         $log->temp_ambien = $in['temp_ambien'];
         $log->kwh_ps = $in['kwh_ps'];
         $log->plts_inverter_id = $in['plts_inverter_id'];
-        // $log->plts_pl_id = $in['pl_id'];
+        $log->users_id = $in['users_id'];
         $log->save();
         return 'success';
     }

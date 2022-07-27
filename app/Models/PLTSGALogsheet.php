@@ -11,7 +11,7 @@ class PLTSGALogsheet extends Model
     protected $table = 'plts_gili_air_logsheet';
     public $timestamps = false;
 
-    public function pltsGaInverter(){
+    public function pltsGiliAirInverter(){
         return $this->belongsTo('App\Models\PLTSGAInverter');
     }
 
