@@ -41,6 +41,7 @@ PLTMH SANTONG LOGS
                                 <td rowspan="3">Tek.Air Turbin</td>
                                 <td rowspan="3">Gen.Speed</td>
                                 <td colspan="27" align="center">Panel Generator</td>
+                                <td rowspan="4" valign="buttom">Operator</td>
                                 <td rowspan="4" valign="buttom">Keterangan</td>
                             </tr>
                             <tr bgcolor="#E9E7E7">
@@ -149,14 +150,14 @@ PLTMH SANTONG LOGS
     function loadData() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('pltmh-santong/log/load-data') }}",
+            url: "{{ url('pltmh-santong/log/load-data?generator_id=1') }}",
             success: function (r) {
                 console.log(r)
 
                 var data = []
                 $.each(r.log, function (i, d) {
                     data.push([
-                        // (i+1),
+                        '',
                         d.jam,
                         d.real_time,
                         d.tek_air_turbin,
@@ -188,8 +189,9 @@ PLTMH SANTONG LOGS
                         d.level_air,
                         d.debit,
                         d.kwh_ps,
+                        d.users.name,
                         d.ket,
-                        ''
+                    
                     ])
                 })
 

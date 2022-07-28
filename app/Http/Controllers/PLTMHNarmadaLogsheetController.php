@@ -15,9 +15,17 @@ class PLTMHNarmadaLogsheetController extends Controller
 
     public function loadData(Request $r)
     {
-        $log = PLTMHNarmadaLogsheet::all();
+
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+		$log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->where('tanggal', $date)->where('pltmh_narmada_generator_id', $r->generator_id)->get();
+		
         return compact('log');
     }
+
+    public function detail(Request $r){
+		$log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->find($r->id);
+		return $log;
+	}
 
     public function create(Request $in)
     {
@@ -48,7 +56,8 @@ class PLTMHNarmadaLogsheetController extends Controller
         $log->debit = $in['debit'];
         $log->kwh_ps = $in['kwh_ps'];
         $log->ket = $in['ket'];
-        // $log->pltmh_pengga_pl_id = $in['pl_id'];
+        $log->pltmh_narmada_generator_id = $in['pltmh_narmada_generator_id'];
+        $log->users_id = $in['users_id'];
         $log->save();
         return 'success';
     }

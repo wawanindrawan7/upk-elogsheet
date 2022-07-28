@@ -20,11 +20,9 @@ class PLTDNiigataGenLogController extends Controller
 	}
 
 	public function loadData(Request $r){
-		if($r->date == null){
-			$log = PLTDNiigataGenLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
-		}else{
-			$log = PLTDNiigataGenLog::with('users')->where('tanggal', $r->date)->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
-		}
+		$date = $r->has('date') ? $r->date : date('Y-m-d');
+		$log = PLTDNiigataGenLog::with('users')->with('pltdUnit')->where('tanggal', $date)->where('pltd_unit_id', $r->unit_id)->get();
+		
 		return compact('log');
 	}
 

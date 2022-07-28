@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\PLTDPMUnit;
 use App\Models\PLTDUnit;
+use App\Models\PLTMHNarmadaGenerator;
+use App\Models\PLTMHPenggaGenerator;
+use App\Models\PLTMHSantongGenerator;
 use App\Models\PLTSGAInverter;
 use App\Models\PLTSGMInverter;
 use App\Models\PLTSInverter;
@@ -76,5 +79,20 @@ class LoginController extends Controller
     public function pltsGmInverter(){
         $inverter = PLTSGMInverter::all();
         return compact('inverter');
+    }
+
+    public function pltmhNarmadaGenerator(){
+        $generator = PLTMHNarmadaGenerator::all();
+        return compact('generator');
+    }
+
+    public function pltmhPenggaGenerator(){
+        $generator = PLTMHPenggaGenerator::all();
+        return compact('generator');
+    }
+
+    public function pltmhSantongGenerator(){
+        $generator = PLTMHSantongGenerator::all();
+        return compact('generator');
     }
 }

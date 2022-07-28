@@ -19,11 +19,10 @@ class PLTDPMZVEngLogController extends Controller
 	}
 
 	public function loadData(Request $r){
-		if($r->date == null){
-			$log = PLTDPMZVEngLog::with('users')->with('pltdPmUnit')->where('pltd_pm_unit_id', $r->unit_id)->get();
-		}else{
-			$log = PLTDPMZVEngLog::with('users')->with('pltdPmUnit')->where('tanggal', $r->date)->where('pltd_pm_unit_id', $r->unit_id)->get();
-		}
+		$date = $r->has('date') ? $r->date : date('Y-m-d');
+		
+		$log = PLTDPMZVEngLog::with('users')->with('pltdPmUnit')->where('tanggal', $date)->where('pltd_pm_unit_id', $r->unit_id)->get();
+		
 		return compact('log');
 	}
 

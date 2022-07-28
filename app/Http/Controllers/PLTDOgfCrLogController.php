@@ -19,11 +19,9 @@ class PLTDOgfCrLogController extends Controller
 	}
 
 	public function loadData(Request $r){
-		if($r->date == null){
-			$log = PLTDOgfCrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
-		}else{
-			$log = PLTDOgfCrLog::with('users')->where('tanggal', $r->date)->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
-		}
+		$date = $r->has('date') ? $r->date : date('Y-m-d');
+		$log = PLTDOgfCrLog::with('users')->where('tanggal', $date)->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
+		
 		return compact('log');
 	}
 

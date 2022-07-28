@@ -140,14 +140,14 @@ PLTMH NARMADA LOGS
     function loadData() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('pltmh-narmada/log/load-data') }}",
+            url: "{{ url('pltmh-narmada/log/load-data?generator_id=1') }}",
             success: function (r) {
                 console.log(r)
 
                 var data = []
                 $.each(r.log, function (i, d) {
                     data.push([
-                        // (i+1),
+                        '',
                         d.jam,
                         d.real_time,
                         d.tek_air_turbin,
@@ -172,9 +172,9 @@ PLTMH NARMADA LOGS
                         d.level_air,
                         d.debit,
                         d.kwh_ps,
+                        d.users.name,
                         d.ket,
-                        '',
-                        ''
+                        
                     ])
                 })
 

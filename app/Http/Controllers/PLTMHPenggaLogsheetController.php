@@ -15,9 +15,16 @@ class PLTMHPenggaLogsheetController extends Controller
 
     public function loadData(Request $r)
     {
-        $log = PLTMHPenggaLogsheet::all();
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+		$log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->where('tanggal', $date)->where('pltmh_pengga_generator_id', $r->generator_id)->get();
+		
         return compact('log');
     }
+
+    public function detail(Request $r){
+		$log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->find($r->id);
+		return $log;
+	}
 
     public function create(Request $in)
     {
@@ -49,7 +56,8 @@ class PLTMHPenggaLogsheetController extends Controller
         $log->kwh_ps = $in['kwh_ps'];
         $log->kwh_eb = $in['kwh_eb'];
         $log->ket = $in['ket'];
-        // $log->pltmh_pengga_pl_id = $in['pl_id'];
+        $log->pltmh_pengga_generator_id = $in['pltmh_pengga_generator_id'];
+        $log->users_id = $in['users_id'];
         $log->save();
         return 'success';
     }

@@ -15,9 +15,16 @@ class PLTMHSantongLogsheetController extends Controller
 
     public function loadData(Request $r)
     {
-        $log = PLTMHSantongLogsheet::all();
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+		$log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->where('tanggal', $date)->where('pltmh_santong_generator_id', $r->generator_id)->get();
+		
         return compact('log');
     }
+
+    public function detail(Request $r){
+		$log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->find($r->id);
+		return $log;
+	}
 
     public function create(Request $in)
     {
@@ -55,7 +62,8 @@ class PLTMHSantongLogsheetController extends Controller
         $log->debit = $in['debit'];
         $log->kwh_ps = $in['kwh_ps'];
         $log->ket = $in['ket'];
-        // $log->pltmh_santong_pl_id = $in['pl_id'];
+        $log->pltmh_santong_generator_id = $in['pltmh_santong_generator_id'];
+        $log->users_id = $in['users_id'];
         $log->save();
         return 'success';
     }

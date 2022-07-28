@@ -9,8 +9,11 @@ use Illuminate\Http\Request;
 class PLTDNiigataEngLogController extends Controller
 {
     public function view(Request $r){
+		//inisasi tgl ke view
+		$date = $r->has('date') ? $r->date : date('Y-m-d');
+		
         $unit = PLTDUnit::find($r->unit_id);
-        return view('pltd-amp.niigata-eng-log', compact('unit'));
+        return view('pltd-amp.niigata-eng-log', compact('unit','date'));
     }
 
 	public function detail(Request $r){
@@ -19,12 +22,11 @@ class PLTDNiigataEngLogController extends Controller
 	}
 
 	public function loadData(Request $r){
-		if($r->date == null){
-			$log = PLTDNiigataEngLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
-		}else{
-			$log = PLTDNiigataEngLog::with('users')->with('pltdUnit')->where('tanggal', $r->date)->where('pltd_unit_id', $r->unit_id)->get();
-		}
-		return compact('log');
+		$date = $r->has('date') ? $r->date : date('Y-m-d');
+		
+		$log = PLTDNiigataEngLog::with('users')->with('pltdUnit')->where('tanggal', $date)->where('pltd_unit_id', $r->unit_id)->get();
+		
+		return compact('log','date');
 	}
 
     public function create(Request $in){
