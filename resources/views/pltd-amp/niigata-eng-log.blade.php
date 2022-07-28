@@ -33,7 +33,7 @@
                     <div class="modal-body">
                         {{-- setting unit id --}}
                         <input type="hidden" name="unit_id" value="{{ $unit->id }}">
-                        
+
                         <div class="form-group">
                             <label>Date</label>
                             <input type="text" id="date" readonly name="date" value="{{ date('Y-m-d') }}"

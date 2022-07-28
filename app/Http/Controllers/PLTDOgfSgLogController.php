@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class PLTDOgfSgLogController extends Controller
 {
     public function view(Request $r){
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
 		$unit = PLTDUnit::find($r->unit_id);
-        return view('pltd-amp.ogf-sg-log', compact('unit'));
+        return view('pltd-amp.ogf-sg-log', compact('unit','date'));
     }
 
 	public function detail(Request $r){
@@ -21,7 +22,7 @@ class PLTDOgfSgLogController extends Controller
 	public function loadData(Request $r){
 		$date = $r->has('date') ? $r->date : date('Y-m-d');
 		$log = PLTDOgfSgLog::with('users')->where('tanggal', $date)->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
-		
+
 		return compact('log');
 	}
 

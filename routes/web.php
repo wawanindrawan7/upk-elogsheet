@@ -59,9 +59,9 @@ Route::group(['prefix' => 'pltd-amp', 'middleware' => 'auth'], function () {
     Route::get('zv/eng-log', [PLTDZVEngLogController::class, 'view']);
     Route::get('zv/eng-log/load-data', [PLTDZVEngLogController::class, 'loadData']);
 
-    Route::get('zv/gen-log', [PLTDPMZVGenLogController::class, 'view']);
-    Route::get('zv/gen-log/load-data', [PLTDPMZVGenLogController::class, 'loadData']);
-    Route::get('zv/gen-log/detail', [PLTDPMZVGenLogController::class, 'detail']);
+    Route::get('zv/gen-log', [PLTDZVGenLogController::class, 'view']);
+    Route::get('zv/gen-log/load-data', [PLTDZVGenLogController::class, 'loadData']);
+    Route::get('zv/gen-log/detail', [PLTDZVGenLogController::class, 'detail']);
 
     Route::get('zv/export', [PLTDAmpController::class, 'zvExport']);
 

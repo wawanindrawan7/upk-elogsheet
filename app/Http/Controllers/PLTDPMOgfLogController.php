@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class PLTDPMOgfLogController extends Controller
 {
     public function view(Request $r){
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
         $unit = PLTDPMUnit::find($r->unit_id);
-        return view('pltd-pm.ogf-log', compact('unit'));
+        return view('pltd-pm.ogf-log', compact('unit','date'));
     }
 
 	public function detail(Request $r){
