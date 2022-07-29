@@ -3,19 +3,19 @@
     NIIGATA ENGINE LOGS
 @endsection
 @section('css')
-<link rel="stylesheet" href="{{ asset('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-{{-- <link rel="stylesheet" href="{{ asset('node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}"> --}}
-<link rel="stylesheet" href="{{ asset('node_modules/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-daterangepicker/daterangepicker.css') }}">
     <style>
         .modal-backdrop {
-      /* bug fix - no overlay */
-      display: none;
-}
+            /* bug fix - no overlay */
+            display: none;
+        }
 
-.modal{
-    /* bug fix - custom overlay */
-    background-color: rgba(10,10,10,0.45);
-}
+        .modal {
+            /* bug fix - custom overlay */
+            background-color: rgba(10, 10, 10, 0.45);
+        }
     </style>
 @endsection
 @section('content')
@@ -57,8 +57,9 @@
                     {{-- tampilkan tgl --}}
                     <h4>Logsheet {{ date('d-m-Y', strtotime($date)) }}</h4>
                     <div class="card-header-action">
-                        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#cari-modal"><i class="fa fa-calendar"></i> Cari</a>
-                      </div>
+                        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#cari-modal"><i
+                                class="fa fa-calendar"></i> Cari</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -99,60 +100,60 @@
     </div>
 @endsection
 @section('js')
-<script src="{{ asset('node_modules/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script src="{!! asset('node_modules/bootstrap-daterangepicker/daterangepicker.js') !!}"></script>
-{{-- <script src="{{ asset('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script> --}}
-<script src="{!! asset('assets/js/page/bootstrap-modal.js') !!}"></script>
-<script>
-    // ambil tgl dari controller ke js
-    var date = "{{ $date }}"
+    <script src="{{ asset('node_modules/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{!! asset('node_modules/bootstrap-daterangepicker/daterangepicker.js') !!}"></script>
+    <script src="{!! asset('assets/js/page/bootstrap-modal.js') !!}"></script>
+    <script>
+        // ambil tgl dari controller ke js
+        var date = "{{ $date }}"
 
-    loadData()
+        loadData()
 
-    function loadData(){
-        var unit_id = "{{ $unit->id }}"
-        $.ajax({
-            type : 'GET',
-            url : "{{ url('pltd-amp/niigata/eng-log/load-data?unit_id=') }}"+unit_id+"&date="+date, //tambahkan &date=date
-            success : function(r){
-                console.log(r)
+        function loadData() {
+            var unit_id = "{{ $unit->id }}"
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('pltd-amp/niigata/eng-log/load-data?unit_id=') }}" + unit_id + "&date=" +
+                date, //tambahkan &date=date
+                success: function(r) {
+                    console.log(r)
 
-                var data = []
-                $.each(r.log, function(i, d){
-                    data.push([
-                        // (i+1),
-                        d.jam,
-                        d.tek_air_pen_mas_mes,
-                        d.tek_air_pen_mas_inter,
-                        d.tek_minyak_pelumas_mas_mes,
-                        d.tek_udara_bilas_a,
-                        d.tek_udara_bilas_b,
-                        d.tek_bah_bak_mas_mes,
-                        d.tek_minyak_pelumas_tuas_katup,
-                        d.tek_minyak_pend_injektor,
-                        d.gas_buang,
-                        d.load_limit_gov,
-                        d.time_check,
-                        ''
-                    ])
-                })
+                    var data = []
+                    $.each(r.log, function(i, d) {
+                        data.push([
+                            // (i+1),
+                            d.jam,
+                            d.tek_air_pen_mas_mes,
+                            d.tek_air_pen_mas_inter,
+                            d.tek_minyak_pelumas_mas_mes,
+                            d.tek_udara_bilas_a,
+                            d.tek_udara_bilas_b,
+                            d.tek_bah_bak_mas_mes,
+                            d.tek_minyak_pelumas_tuas_katup,
+                            d.tek_minyak_pend_injektor,
+                            d.gas_buang,
+                            d.load_limit_gov,
+                            d.time_check,
+                            ''
+                        ])
+                    })
 
-                var mytable = $('#dataTable').DataTable({
-                    sDom: 'lrtip',
-                    "paging": true,
-                    "pageLength" : 100,
-                    "lengthChange": false,
-                    "ordering": true,
-                    "data" : data,
-                    "autoWidth": false,
-                    "responsive": true,
-                });
+                    var mytable = $('#dataTable').DataTable({
+                        sDom: 'lrtip',
+                        "paging": true,
+                        "pageLength": 100,
+                        "lengthChange": false,
+                        "ordering": true,
+                        "data": data,
+                        "autoWidth": false,
+                        "responsive": true,
+                    });
 
-                $('#key_search').on('keyup', function () {
-                    mytable.search(this.value).draw();
-                });
-            }
-        })
-    }
-</script>
+                    $('#key_search').on('keyup', function() {
+                        mytable.search(this.value).draw();
+                    });
+                }
+            })
+        }
+    </script>
 @endsection
