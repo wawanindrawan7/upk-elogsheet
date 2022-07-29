@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PLTSGAInverter;
 use App\Models\PLTSGALogsheet;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -11,8 +12,10 @@ class PLTSGALogsheetController extends Controller
     //
     public function view(Request $r)
     {
-        $inverter_id = $r->inverter_id;
-        return view('plts-ga.log', compact('inverter_id'));
+        // $inverter_id = $r->inverter_id;
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+        $inverter = PLTSGAInverter::find($r->inverter_id);
+        return view('plts-ga.log', compact('inverter','date'));
     }
 
     public function home(){

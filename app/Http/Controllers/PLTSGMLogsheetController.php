@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PLTSGMInverter;
 use App\Models\PLTSGMLogsheet;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -10,8 +11,10 @@ class PLTSGMLogsheetController extends Controller
 {
     public function view(Request $r)
     {
-        $inverter_id = $r->inverter_id;
-        return view('plts-gm.log', compact('inverter_id'));
+        // $inverter_id = $r->inverter_id;
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+        $inverter = PLTSGMInverter::find($r->inverter_id);
+        return view('plts-gm.log', compact('inverter','date'));
     }
 
     public function home(){

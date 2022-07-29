@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class PLTDPMZVEngLogController extends Controller
 {
     public function view(Request $r){
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
         $unit = PLTDPMUnit::find($r->unit_id);
-        return view('pltd-pm.zv-eng-log', compact('unit'));
+        return view('pltd-pm.zv-eng-log', compact('unit','date'));
     }
 
 	public function detail(Request $r){
@@ -20,9 +21,9 @@ class PLTDPMZVEngLogController extends Controller
 
 	public function loadData(Request $r){
 		$date = $r->has('date') ? $r->date : date('Y-m-d');
-		
+
 		$log = PLTDPMZVEngLog::with('users')->with('pltdPmUnit')->where('tanggal', $date)->where('pltd_pm_unit_id', $r->unit_id)->get();
-		
+
 		return compact('log');
 	}
 

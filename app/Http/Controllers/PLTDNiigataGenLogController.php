@@ -10,8 +10,10 @@ class PLTDNiigataGenLogController extends Controller
 {
     //
     public function view(Request $r){
+        //inisasi tgl ke view
+		$date = $r->has('date') ? $r->date : date('Y-m-d');
 		$unit = PLTDUnit::find($r->unit_id);
-        return view('pltd-amp.niigata-gen-log', compact('unit'));
+        return view('pltd-amp.niigata-gen-log', compact('unit','date'));
     }
 
 	public function detail(Request $r){
@@ -22,7 +24,7 @@ class PLTDNiigataGenLogController extends Controller
 	public function loadData(Request $r){
 		$date = $r->has('date') ? $r->date : date('Y-m-d');
 		$log = PLTDNiigataGenLog::with('users')->with('pltdUnit')->where('tanggal', $date)->where('pltd_unit_id', $r->unit_id)->get();
-		
+
 		return compact('log');
 	}
 

@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class PLTDZAVGenLogController extends Controller
 {
     public function view(Request $r){
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
         $unit = PLTDUnit::find($r->unit_id);
-        return view('pltd-amp.zav-gen-log', compact('unit'));
+        return view('pltd-amp.zav-gen-log', compact('unit','date'));
     }
 
 	public function detail(Request $r){
