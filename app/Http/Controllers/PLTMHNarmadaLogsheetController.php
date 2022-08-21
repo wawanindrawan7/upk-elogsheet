@@ -16,9 +16,13 @@ class PLTMHNarmadaLogsheetController extends Controller
     public function loadData(Request $r)
     {
 
-        $date = $r->has('date') ? $r->date : date('Y-m-d');
-        $log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->where('tanggal', $date)->where('pltmh_narmada_generator_id', $r->generator_id)->get();
-
+        if($r->has('date')){
+            $date = $r->date;
+            $log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->where('tanggal', $date)->where('pltmh_narmada_generator_id', $r->generator_id)->get();
+        }else{
+            $log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->where('pltmh_narmada_generator_id', $r->generator_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->take(24)->get();
+        }
+        
         return compact('log');
     }
 

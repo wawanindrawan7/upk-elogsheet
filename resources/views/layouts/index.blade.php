@@ -72,24 +72,20 @@
           </div>
           <ul class="sidebar-menu">
               <li class="menu-header">Dashboard</li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-                  <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                </ul>
+              <li class="nav-item">
+                <a href="{{ url('home') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
               </li>
               <li class="menu-header">Starter</li>
 
 
-              <li><a class="nav-link" href="{{ url('pltd-amp') }}"><i class="far fa-square"></i> <span>PLTD Ampenan</span></a></li>
-              <li><a class="nav-link" href="{{ url('pltd-pm') }}"><i class="far fa-square"></i> <span>PLTD Paok Motong</span></a></li>
-              <li><a class="nav-link" href="{{ url('pltmh-narmada/log') }}"><i class="far fa-square"></i> <span>PLTMH Narmada</span></a></li>
-              <li><a class="nav-link" href="{{ url('pltmh-pengga/log') }}"><i class="far fa-square"></i> <span>PLTMH Pengga</span></a></li>
-              <li><a class="nav-link" href="{{ url('pltmh-santong/log') }}"><i class="far fa-square"></i> <span>PLTMH Santong</span></a></li>
-              <li><a class="nav-link" href="{{ url('plts/home') }}"><i class="far fa-square"></i> <span>PLTS Gili Trawangan</span></a></li>
-              <li><a class="nav-link" href="{{ url('plts-gm/home') }}"><i class="far fa-square"></i> <span>PLTS Gili Meno</span></a></li>
-              <li><a class="nav-link" href="{{ url('plts-ga/home') }}"><i class="far fa-square"></i> <span>PLTS Gili Air</span></a></li>
+              <li><a class="nav-link" href="{{ url('pltd-amp') }}"><i class="fas fa-cogs"></i> <span>PLTD Ampenan</span></a></li>
+              <li><a class="nav-link" href="{{ url('pltd-pm') }}"><i class="fas fa-cogs"></i> <span>PLTD Paok Motong</span></a></li>
+              <li><a class="nav-link" href="{{ url('pltmh-narmada/log') }}"><i class="fas fa-cogs"></i> <span>PLTMH Narmada</span></a></li>
+              <li><a class="nav-link" href="{{ url('pltmh-pengga/log') }}"><i class="fas fa-cogs"></i> <span>PLTMH Pengga</span></a></li>
+              <li><a class="nav-link" href="{{ url('pltmh-santong/log') }}"><i class="fas fa-cogs"></i> <span>PLTMH Santong</span></a></li>
+              <li><a class="nav-link" href="{{ url('plts/home') }}"><i class="fas fa-cogs"></i> <span>PLTS Gili Trawangan</span></a></li>
+              <li><a class="nav-link" href="{{ url('plts-gm/home') }}"><i class="fas fa-cogs"></i> <span>PLTS Gili Meno</span></a></li>
+              <li><a class="nav-link" href="{{ url('plts-ga/home') }}"><i class="fas fa-cogs"></i> <span>PLTS Gili Air</span></a></li>
 
 
               <li class="nav-item dropdown">
@@ -104,14 +100,7 @@
                   <li><a class="nav-link" href="features-tickets.html">Tickets</a></li>
                 </ul>
               </li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-ellipsis-h"></i> <span>Utilities</span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="utilities-contact.html">Contact</a></li>
-                  <li><a class="nav-link" href="utilities-invoice.html">Invoice</a></li>
-                  <li><a href="utilities-subscribe.html">Subscribe</a></li>
-                </ul>
-              </li>
+              
               <li><a class="nav-link" href="credits.html"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
             </ul>
 

@@ -355,14 +355,11 @@
         </div>
     </div>
 
-<<<<<<< HEAD
 <div class="modal fade" tabindex="-1" role="dialog" id="export-modal">
     <div class="modal-dialog modal-dialog-centered" role="document">
-=======
     <div class="modal fade" tabindex="-1" role="dialog" id="export-modal">
 
         <div class="modal-dialog modal-dialog-centered" role="document">
->>>>>>> 8af798bf86696b8dabda919db1ae529960ff9b48
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Export</h5>

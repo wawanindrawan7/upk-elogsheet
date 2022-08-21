@@ -138,7 +138,7 @@ PLTMH PENGGA LOGS
     function loadData() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('pltmh-pengga/log/load-data?genertor_id=1') }}",
+            url: "{{ url('pltmh-pengga/log/load-data?generator_id=1') }}",
             success: function (r) {
                 console.log(r)
 

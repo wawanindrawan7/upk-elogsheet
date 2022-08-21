@@ -15,9 +15,12 @@ class PLTMHPenggaLogsheetController extends Controller
 
     public function loadData(Request $r)
     {
-        $date = $r->has('date') ? $r->date : date('Y-m-d');
-		$log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->where('tanggal', $date)->where('pltmh_pengga_generator_id', $r->generator_id)->get();
-		
+        if($r->has('date')){
+            $date = $r->date;
+		    $log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->where('tanggal', $date)->where('pltmh_pengga_generator_id', $r->generator_id)->get();
+        }else{
+		    $log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->where('pltmh_pengga_generator_id', $r->generator_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->take(24)->get();
+        }
         return compact('log');
     }
 
