@@ -15,9 +15,12 @@ class PLTMHSantongLogsheetController extends Controller
 
     public function loadData(Request $r)
     {
-        $date = $r->has('date') ? $r->date : date('Y-m-d');
-		$log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->where('tanggal', $date)->where('pltmh_santong_generator_id', $r->generator_id)->get();
-		
+        if($r->has('date')){
+            $date = $r->date;
+		    $log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->where('tanggal', $date)->where('pltmh_santong_generator_id', $r->generator_id)->get();
+        }else{
+		    $log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->where('pltmh_santong_generator_id', $r->generator_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->take(24)->get();
+        }
         return compact('log');
     }
 

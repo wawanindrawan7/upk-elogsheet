@@ -43,7 +43,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary btn-submit-export">Cari</button>
+                        <button type="submit" class="btn btn-primaryt">Cari</button>
                     </div>
                 </form>
             </div>
@@ -172,7 +172,7 @@
             var inverter_id = "{{ $inverter->id }}"
             $.ajax({
                 type: 'GET',
-                url: "{{ url('plts/log/load-data?inverter_id=') }}" inverter_id + "&date=" +
+                url: "{{ url('plts/log/load-data?inverter_id=') }}"+inverter_id + "&date=" +
                 date, //tambahkan &date=date
                 success: function(r) {
                     console.log(r)

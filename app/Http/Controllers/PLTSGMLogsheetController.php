@@ -23,10 +23,10 @@ class PLTSGMLogsheetController extends Controller
 
     public function loadData(Request $r)
     {
-        if($r->date == null){
-			$log = PLTSGMLogsheet::with('users')->with('pltsGmInverter')->where('plts_gm_inverter_id', $r->inverter_id)->get();
+        if($r->date != date('Y-m-d')){
+			$log = PLTSGMLogsheet::with('users')->with('pltsGmInverter')->where('plts_gm_inverter_id', $r->inverter_id)->where('tanggal', $r->date)->orderBy('tanggal','desc')->orderBy('jam','desc')->get();
 		}else{
-			$log = PLTSGMLogsheet::with('users')->with('pltsGmInverter')->where('tanggal', $r->date)->where('plts_gm_inverter_id', $r->inverter_id)->get();
+			$log = PLTSGMLogsheet::with('users')->with('pltsGmInverter')->where('plts_gm_inverter_id', $r->inverter_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->take(24)->get();
 		}
 		return compact('log');
     }
