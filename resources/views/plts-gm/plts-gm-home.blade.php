@@ -37,18 +37,10 @@ PLTS GILI MENO
                                             <i class="fas fa-cog"></i>
                                         </div>
                                         <div class="wizard-step-label">
-                                            <a href="{{ url('plts-gm/log?inverter_id=1') }}" class="text-white">MESIN 1</a>
+                                            <a href="{{ url('plts-gm/log?inverter_id=1') }}" class="text-white">INVERTER 1</a>
                                         </div>
                                     </div>
-                                    <div class="wizard-step wizard-step-active">
-                                        <div class="wizard-step-icon">
-                                            <i class="fas fa-cog"></i>
-                                        </div>
-                                        <div class="wizard-step-label">
-                                            <a href="{{ url('plts-gm/log?inverter_id=2') }}" class="text-white">
-                                                MESIN 2</a>
-                                        </div>
-                                    </div>
+                                  
 
                                     <div class="wizard-step wizard-step-active">
                                         <div class="wizard-step-icon">

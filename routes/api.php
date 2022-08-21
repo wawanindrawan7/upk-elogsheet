@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PLTDNiigataEngLogController;
 use App\Http\Controllers\PLTDNiigataGenLogController;
 use App\Http\Controllers\PLTDOgfCrLogController;
@@ -39,6 +40,8 @@ Route::post('auth', [LoginController::class, 'auth']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('dashboard',[HomeController::class,'restDashboard']);
 
 Route::get('pltd-amp/unit/get-data', [LoginController::class, 'unit']);
 
