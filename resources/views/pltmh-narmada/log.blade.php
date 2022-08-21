@@ -20,12 +20,44 @@
     </style>
 @endsection
 @section('content')
+    <div class="modal fade" tabindex="-1" role="dialog" id="cari-modal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form method="get" action="{{ url('pltmh-narmada/log') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cari</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{-- setting unit id --}}
+                        <input type="hidden" name="generator_id" value="{{ $generator->id }}">
+
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" id="date" readonly name="date" value="{{ date('Y-m-d') }}"
+                                class="form-control datepicker">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-12 col-md-6 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Logsheet</h4>
+                    <h4>Logsheet {{ date('d-m-Y', strtotime($date)) }}</h4>
                     <div class="card-header-action">
+                        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#cari-modal"><i
+                                class="fa fa-calendar"></i> Cari</a>
                         <a href="#" class="btn btn-success btn-export" data-cat="nar-log"><i class="fa fa-print"></i>
                             Export</a>
                     </div>
@@ -135,12 +167,18 @@
     <script src="{!! asset('assets/js/page/bootstrap-modal.js') !!}"></script>
     {{-- <script src="{{ asset('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script> --}}
     <script>
+        var date = "{{ $date }}"
+
         loadData()
 
         function loadData() {
+
+            var generator_id = "{{ $generator->id }}"
+
             $.ajax({
                 type: 'GET',
-                url: "{{ url('pltmh-narmada/log/load-data?generator_id=1') }}",
+                url: "{{ url('pltmh-narmada/log/load-data?generator_id=') }}" + generator_id + "&date=" +
+                    date, //tambahkan &date=date
                 success: function(r) {
                     console.log(r)
 

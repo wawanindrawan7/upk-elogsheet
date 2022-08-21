@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PLTMHNarmadaGenerator;
 use App\Models\PLTMHNarmadaLogsheet;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -10,19 +11,21 @@ class PLTMHNarmadaLogsheetController extends Controller
 {
     public function view(Request $r)
     {
-        return view('pltmh-narmada.log');
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+        $generator = PLTMHNarmadaGenerator::find(1);
+        return view('pltmh-narmada.log',compact('date','generator'));
     }
 
     public function loadData(Request $r)
     {
 
-        if($r->has('date')){
+        if($r->date != date('Y-m-d')){
             $date = $r->date;
-            $log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->where('tanggal', $date)->where('pltmh_narmada_generator_id', $r->generator_id)->get();
+            $log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->where('pltmh_narmada_generator_id', $r->generator_id)->where('tanggal', $date)->orderBy('tanggal','desc')->orderBy('jam','desc')->get();
         }else{
             $log = PLTMHNarmadaLogsheet::with('users')->with('pltmhNarmadaGenerator')->where('pltmh_narmada_generator_id', $r->generator_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->take(24)->get();
         }
-        
+
         return compact('log');
     }
 

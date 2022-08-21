@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PLTMHPenggaGenerator;
 use App\Models\PLTMHPenggaLogsheet;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -10,14 +11,16 @@ class PLTMHPenggaLogsheetController extends Controller
 {
     public function view(Request $r)
     {
-        return view('pltmh-pengga.log');
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+        $generator = PLTMHPenggaGenerator::find(1);
+        return view('pltmh-pengga.log',compact('date','generator'));
     }
 
     public function loadData(Request $r)
     {
-        if($r->has('date')){
+        if($r->date != date('Y-m-d')){
             $date = $r->date;
-		    $log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->where('tanggal', $date)->where('pltmh_pengga_generator_id', $r->generator_id)->get();
+		    $log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->where('pltmh_pengga_generator_id', $r->generator_id)->where('tanggal', $date)->orderBy('tanggal','desc')->orderBy('jam','desc')->get();
         }else{
 		    $log = PLTMHPenggaLogsheet::with('users')->with('pltmhPenggaGenerator')->where('pltmh_pengga_generator_id', $r->generator_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->take(24)->get();
         }

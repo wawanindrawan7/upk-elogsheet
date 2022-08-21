@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PLTMHSantongGenerator;
 use App\Models\PLTMHSantongLogsheet;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -10,14 +11,16 @@ class PLTMHSantongLogsheetController extends Controller
 {
     public function view(Request $r)
     {
-        return view('pltmh-santong.log');
+        $date = $r->has('date') ? $r->date : date('Y-m-d');
+        $generator = PLTMHSantongGenerator::find(1);
+        return view('pltmh-santong.log',compact('date','generator'));
     }
 
     public function loadData(Request $r)
     {
-        if($r->has('date')){
+        if($r->date != date('Y-m-d')){
             $date = $r->date;
-		    $log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->where('tanggal', $date)->where('pltmh_santong_generator_id', $r->generator_id)->get();
+		    $log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->where('tanggal', $date)->where('pltmh_santong_generator_id', $r->generator_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->get();
         }else{
 		    $log = PLTMHSantongLogsheet::with('users')->with('pltmhSantongGenerator')->where('pltmh_santong_generator_id', $r->generator_id)->orderBy('tanggal','desc')->orderBy('jam','desc')->take(24)->get();
         }

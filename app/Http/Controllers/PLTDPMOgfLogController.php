@@ -20,11 +20,11 @@ class PLTDPMOgfLogController extends Controller
 	}
 
 	public function loadData(Request $r){
-		if($r->date == null){
-			$log = PLTDPMOgfLog::with('users')->with('pltdPmUnit')->where('pltd_pm_unit_id', $r->unit_id)->get();
-		}else{
-			$log = PLTDPMOgfLog::with('users')->with('pltdPmUnit')->where('tanggal', $r->date)->where('pltd_pm_unit_id', $r->unit_id)->get();
-		}
+        if ($r->date != date('Y-m-d')) {
+            $log = PLTDPMOgfLog::with('users')->with('pltdPmUnit')->where('tanggal', $r->date)->where('pltd_pm_unit_id', $r->unit_id)->where('tanggal', $r->date)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->get();
+        } else {
+            $log = PLTDPMOgfLog::with('users')->with('pltdPmUnit')->where('pltd_pm_unit_id', $r->unit_id)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->take(24)->get();
+        }
 		return compact('log');
 	}
 

@@ -58,9 +58,9 @@
                     <div class="card-header-action">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#cari-modal"><i
                                 class="fa fa-calendar"></i> Cari</a>
+                        <a href="#" class="btn btn-success btn-export" data-cat="nar-log"><i class="fa fa-print"></i>
+                            Export</a>
                     </div>
-                    <a href="#" class="btn btn-success btn-export" data-cat="nar-log"><i class="fa fa-print"></i>
-                        Export</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -171,8 +171,8 @@
             var inverter_id = "{{ $inverter->id }}"
             $.ajax({
                 type: 'GET',
-                url: "{{ url('plts-ga/log/load-data?inverter_id=') }}"+inverter_id + "&date=" +
-                date, //tambahkan &date=date
+                url: "{{ url('plts-ga/log/load-data?inverter_id=') }}" + inverter_id + "&date=" +
+                    date, //tambahkan &date=date
                 success: function(r) {
                     console.log(r)
 

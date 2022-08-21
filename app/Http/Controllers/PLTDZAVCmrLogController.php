@@ -20,11 +20,11 @@ class PLTDZAVCmrLogController extends Controller
 	}
 
 	public function loadData(Request $r){
-		if($r->date == null){
-			$log = PLTDZAVCmrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->get();
-		}else{
-			$log = PLTDZAVCmrLog::with('users')->with('pltdUnit')->where('tanggal', $r->date)->where('pltd_unit_id', $r->unit_id)->get();
-		}
+        if ($r->date != date('Y-m-d')) {
+            $log = PLTDZAVCmrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->where('tanggal', $r->date)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->get();
+        } else {
+            $log = PLTDZAVCmrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->take(24)->get();
+        }
 		return compact('log');
 	}
 
