@@ -22,6 +22,7 @@ class PLTSLogsheetController extends Controller
 
     public function loadData(Request $r)
     {
+
         if($r->date != date('Y-m-d')){
 			$log = PLTSLogsheet::with('users')->with('pltsInverter')->where('plts_inverter_id', $r->inverter_id)->where('tanggal', $r->date)->orderBy('tanggal','desc')->orderBy('jam','desc')->get();
 		}else{
