@@ -22,8 +22,6 @@
 
 
         <div class="col-md-12">
-
-
             <div class="card">
                 <div class="card-header">
                     <h4>LOGSHEET PER UNIT</h4>
@@ -341,7 +339,7 @@
                                                 <i class="fas fa-file-excel"></i>
                                             </div>
                                             <div class="wizard-step-label">
-                                                <a href="#" class="btn-ogf-export" data-unit_id="8" data-cat="ogf"
+                                                <a href="#" class="btn-export" data-unit_id="8" data-cat="ogf"
                                                     style="color: white;">EXPORT</a>
                                             </div>
                                         </div>
@@ -356,9 +354,6 @@
     </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="export-modal">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal fade" tabindex="-1" role="dialog" id="export-modal">
-
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">

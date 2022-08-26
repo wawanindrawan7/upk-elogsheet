@@ -67,7 +67,7 @@
                                     <td rowspan="2">Jam</td>
                                     <td colspan="2">PANARAGA</td>
                                     <td colspan="2">PS9</td>
-                                    <td colspan="2">PRAYA</td>
+                                    <td colspan="2">BENGKEL</td>
                                     <td colspan="2">SENGGIGI</td>
                                     <td colspan="2">KOPANG</td>
                                     <td colspan="2">GOMONG</td>
@@ -148,7 +148,7 @@
                         "paging": true,
                         "pageLength": 100,
                         "lengthChange": false,
-                        "ordering": true,
+                        "ordering": false,
                         "data": data,
                         "autoWidth": false,
                         "responsive": true,

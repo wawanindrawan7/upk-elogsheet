@@ -43,7 +43,7 @@ class PLTSLogsheetController extends Controller
     {
         DB::beginTransaction();
         try {
-            $lb = PLTSLogsheet::orderBy('id','desc')->where('plts_inverter_id', $in->plts_inverter_id)->first();
+            $lb = PLTSLogsheet::where('tanggal', date('Y-m-d'))->orderBy('id','desc')->where('plts_inverter_id', $in->plts_inverter_id)->first();
 
             $log = new PLTSLogsheet;
             $log->jam = $in['jam'];

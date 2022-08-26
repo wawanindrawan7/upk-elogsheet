@@ -68,6 +68,7 @@ class PLTMHNarmadaLogsheetController extends Controller
             $log->temp_gear_box = $in['temp_gear_box'];
             $log->temp_wind_gen = $in['temp_wind_gen'];
             $log->level_air = $in['level_air'];
+            $log->debit_air = $in['debit_air'];
             $log->debit = $in['debit'];
             $log->kwh_ps = $in['kwh_ps'];
             $log->ket = $in['ket'];

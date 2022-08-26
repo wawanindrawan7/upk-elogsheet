@@ -91,7 +91,7 @@
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i> <span>Master</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="features-activities.html">Activities</a></li>
+                  <li><a class="nav-link" href="features-activities.html">User</a></li>
                   <li><a class="nav-link" href="features-post-create.html">Post Create</a></li>
                   <li><a class="nav-link" href="features-posts.html">Posts</a></li>
                   <li><a class="nav-link" href="features-profile.html">Profile</a></li>

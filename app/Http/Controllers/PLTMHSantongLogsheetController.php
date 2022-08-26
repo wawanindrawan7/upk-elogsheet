@@ -71,6 +71,7 @@ class PLTMHSantongLogsheetController extends Controller
             $log->temp_winding_5 = $in['temp_winding_5'];
             $log->temp_winding_6 = $in['temp_winding_6'];
             $log->level_air = $in['level_air'];
+            $log->debit_air = $in['debit_air'];
             $log->debit = $in['debit'];
             $log->kwh_ps = $in['kwh_ps'];
             $log->ket = $in['ket'];

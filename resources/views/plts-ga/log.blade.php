@@ -179,7 +179,7 @@
                     var data = []
                     $.each(r.log, function(i, d) {
                         data.push([
-                            // (i+1),
+                            '',
                             d.jam,
                             d.real_time,
                             d.pv_modul_volt,

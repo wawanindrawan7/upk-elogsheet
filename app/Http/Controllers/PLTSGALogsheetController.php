@@ -43,7 +43,7 @@ class PLTSGALogsheetController extends Controller
     {
         DB::beginTransaction();
         try {
-            $lb = PLTSGALogsheet::orderBy('id','desc')->where('plts_gili_air_inverter_id', $in->plts_gili_air_inverter_id)->first();
+            $lb = PLTSGALogsheet::where('tanggal', date('Y-m-d'))->orderBy('id','desc')->where('plts_gili_air_inverter_id', $in->plts_gili_air_inverter_id)->first();
 
             $log = new PLTSGALogsheet();
             $log->jam = $in['jam'];
