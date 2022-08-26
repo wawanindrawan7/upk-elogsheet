@@ -120,8 +120,8 @@ class PLTDZVEngLogController extends Controller
             $log->time_check = date("Y-m-d H:i:s");
             // $log->pltd_pl_id = $in['pltd_pl_id'];
             $log->save();
-    
-            $cek = PLTDZVResume::where('jam', $log->jam)->where('tanggal', $log->tanggal)->first();
+
+            $cek = PLTDZVResume::where('pltd_unit_id', $log->pltd_unit_id)->where('jam', $log->jam)->where('tanggal', $log->tanggal)->first();
             if($cek == null){
                 $resume = new PLTDZVResume();
                 $resume->pltd_unit_id = $log->pltd_unit_id;
@@ -144,6 +144,6 @@ class PLTDZVEngLogController extends Controller
             DB::rollBack();
             return $th->getMessage();
         }
-    
+
     }
 }

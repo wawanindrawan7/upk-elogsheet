@@ -66,7 +66,7 @@ class PLTDZVGenLogController extends Controller
             // $log->pltd_pl_id = $in['pl_id'];
             $log->save();
 
-            $cek = PLTDZVResume::where('jam', $log->jam)->where('tanggal', $log->tanggal)->first();
+            $cek = PLTDZVResume::where('pltd_unit_id', $log->pltd_unit_id)->where('jam', $log->jam)->where('tanggal', $log->tanggal)->first();
             if($cek == null){
                 $resume = new PLTDZVResume();
                 $resume->pltd_unit_id = $log->pltd_unit_id;
