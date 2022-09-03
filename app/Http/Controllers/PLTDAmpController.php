@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\PLTDNiigataEngLog;
 use App\Models\PLTDNiigataGenLog;
+use App\Models\PLTDNiigataResume;
 use App\Models\PLTDOgfCrLog;
 use App\Models\PLTDOgfSgLog;
 use App\Models\PLTDUnit;
 use App\Models\PLTDZAVCmrLog;
 use App\Models\PLTDZAVEngLog;
 use App\Models\PLTDZAVGenLog;
+use App\Models\PLTDZAVResume;
 use App\Models\PLTDZVEngLog;
 use App\Models\PLTDZVGenLog;
+use App\Models\PLTDZVResume;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PHPUnit\Framework\MockObject\Stub\ReturnReference;
@@ -19,9 +22,125 @@ use PHPUnit\Framework\MockObject\Stub\ReturnReference;
 class PLTDAmpController extends Controller
 {
     //
-    public function index()
+    public function index(Request $r)
     {
-        return view('pltd-amp.amp-home');
+		$date = ($r->has('date')) ? $r->date : date('Y-m-d');
+
+		
+
+		
+
+        // AMP 2
+        $amp2_ld = '-';
+        $amp2_kwh_prod = 0;
+        $amp2_pemakaian = 0;
+        $amp2_sfc = 0;
+        $amp2 = PLTDZVResume::where('pltd_unit_id', 1)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($amp2) > 0){
+            $amp2_ld = $amp2[0]->jam;
+            $amp2_kwh_prod = $amp2->sum('kwh_prod');
+            $amp2_pemakaian = $amp2->sum('pemakaian');
+            $amp2_sfc = $amp2->sum('sfc');
+        }
+		
+		$amp2_data_chart = PLTDZVResume::where('pltd_unit_id', 1)->where('tanggal', $date)->orderBy('id','asc')->get();
+		
+
+        // AMP 3
+        $amp3_ld = '-';
+        $amp3_kwh_prod = 0;
+        $amp3_pemakaian = 0;
+        $amp3_sfc = 0;
+        $amp3 = PLTDZVResume::where('pltd_unit_id', 2)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($amp3) > 0){
+            $amp3_ld = $amp3[0]->jam;
+            $amp3_kwh_prod = $amp3->sum('kwh_prod');
+            $amp3_pemakaian = $amp3->sum('pemakaian');
+            $amp3_sfc = $amp3->sum('sfc');
+        }
+		$amp3_data_chart = PLTDZVResume::where('pltd_unit_id', 2)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        // AMP 4
+        $amp4_ld = '-';
+        $amp4_kwh_prod = 0;
+        $amp4_pemakaian = 0;
+        $amp4_sfc = 0;
+        $amp4 = PLTDNiigataResume::where('pltd_unit_id', 3)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($amp4) > 0){
+            $amp4_ld = $amp4[0]->jam;
+            $amp4_kwh_prod = $amp4->sum('kwh_prod');
+            $amp4_pemakaian = $amp4->sum('pemakaian');
+            $amp4_sfc = $amp4->sum('sfc');
+        }
+		$amp4_data_chart = PLTDNiigataResume::where('pltd_unit_id', 3)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        // AMP 5
+        $amp5_ld = '-';
+        $amp5_kwh_prod = 0;
+        $amp5_pemakaian = 0;
+        $amp5_sfc = 0;
+        $amp5 = PLTDZAVResume::where('pltd_unit_id', 4)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($amp5) > 0){
+            $amp5_ld = $amp5[0]->jam;
+            $amp5_kwh_prod = $amp5->sum('kwh_prod');
+            $amp5_pemakaian = $amp5->sum('pemakaian');
+            $amp5_sfc = $amp5->sum('sfc');
+        }
+		$amp5_data_chart = PLTDZAVResume::where('pltd_unit_id', 4)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        // AMP 6
+        $amp6_ld = '-';
+        $amp6_kwh_prod = 0;
+        $amp6_pemakaian = 0;
+        $amp6_sfc = 0;
+        $amp6 = PLTDZAVResume::where('pltd_unit_id', 5)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($amp6) > 0){
+            $amp6_ld = $amp6[0]->jam;
+            $amp6_kwh_prod = $amp6->sum('kwh_prod');
+            $amp6_pemakaian = $amp6->sum('pemakaian');
+            $amp6_sfc = $amp6->sum('sfc');
+        }
+		$amp6_data_chart = PLTDZAVResume::where('pltd_unit_id', 5)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        // AMP 7
+        $amp7_ld = '-';
+        $amp7_kwh_prod = 0;
+        $amp7_pemakaian = 0;
+        $amp7_sfc = 0;
+        $amp7 = PLTDZAVResume::where('pltd_unit_id', 6)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($amp7) > 0){
+            $amp7_ld = $amp7[0]->jam;
+            $amp7_kwh_prod = $amp7->sum('kwh_prod');
+            $amp7_pemakaian = $amp7->sum('pemakaian');
+            $amp7_sfc = $amp7->sum('sfc');
+        }
+		$amp7_data_chart = PLTDZAVResume::where('pltd_unit_id', 6)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        // AMP 8
+        $amp8_ld = '-';
+        $amp8_kwh_prod = 0;
+        $amp8_pemakaian = 0;
+        $amp8_sfc = 0;
+        $amp8 = PLTDZAVResume::where('pltd_unit_id', 7)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($amp8) > 0){
+            $amp8_ld = $amp8[0]->jam;
+            $amp8_kwh_prod = $amp8->sum('kwh_prod');
+            $amp8_pemakaian = $amp8->sum('pemakaian');
+            $amp8_sfc = $amp8->sum('sfc');
+        }
+		$amp8_data_chart = PLTDZAVResume::where('pltd_unit_id', 7)->where('tanggal', $date)->orderBy('id','asc')->get();
+		
+        return view('pltd-amp.amp-home', 
+			compact(
+				'amp2_kwh_prod','amp2_pemakaian','amp2_sfc','amp2_data_chart',
+				'amp3_kwh_prod','amp3_pemakaian','amp3_sfc','amp3_data_chart',
+				'amp4_kwh_prod','amp4_pemakaian','amp4_sfc','amp4_data_chart',
+				'amp5_kwh_prod','amp5_pemakaian','amp5_sfc','amp5_data_chart',
+				'amp6_kwh_prod','amp6_pemakaian','amp6_sfc','amp6_data_chart',
+				'amp7_kwh_prod','amp7_pemakaian','amp7_sfc','amp7_data_chart',
+				'amp8_kwh_prod','amp8_pemakaian','amp8_sfc','amp8_data_chart',
+			)
+		);
     }
 
     public function zvExport(Request $r){
@@ -551,6 +670,7 @@ class PLTDAmpController extends Controller
 				$log->biau_s ,
 				$log->biau_t ,
 				$log->biau_kw ,
+				$log->beban_ps9 ,
 				$log->time_check,
 				$log->users->name,
 				));

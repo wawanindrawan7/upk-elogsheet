@@ -21,9 +21,9 @@ class PLTDOgfCrLogController extends Controller
 
 	public function loadData(Request $r){
         if ($r->date != date('Y-m-d')) {
-            $log = PLTDOgfCrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->where('tanggal', $r->date)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->get();
+            $log = PLTDOgfCrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->where('tanggal', $r->date)->orderBy('tanggal', 'desc')->orderBy('id', 'desc')->get();
         } else {
-            $log = PLTDOgfCrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->take(24)->get();
+            $log = PLTDOgfCrLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->orderBy('tanggal', 'desc')->orderBy('id', 'desc')->take(24)->get();
         }
 		return compact('log');
 	}
@@ -83,6 +83,7 @@ class PLTDOgfCrLogController extends Controller
 		$log->biau_s = $in['biau_s'];
 		$log->biau_t = $in['biau_t'];
 		$log->biau_kw = $in['biau_kw'];
+		$log->beban_ps9 = $in['beban_ps9'];
         $log->save();
         return 'success';
     }

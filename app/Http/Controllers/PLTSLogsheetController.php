@@ -134,6 +134,7 @@ class PLTSLogsheetController extends Controller
                 $writer->save('php://output');
         }
     }
+    
     public function exportAll(Request $r){
         {
             $reader = IOFactory::createReader('Xlsx');

@@ -2,18 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PLTDNiigataResume;
 use App\Models\PLTDPMOgfLog;
 use App\Models\PLTDPMUnit;
 use App\Models\PLTDPMZVEngLog;
 use App\Models\PLTDPMZVGenLog;
+use App\Models\PLTDPMZVResume;
+use App\Models\PLTDZAVResume;
+use App\Models\PLTDZVResume;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PLTDPMController extends Controller
 {
-    public function index()
+    public function index(Request $r)
     {
-        return view('pltd-pm.pm-home');
+		$date = ($r->has('date')) ? $r->date : date('Y-m-d');
+
+		// PM 2
+        $pm2_ld = '-';
+        $pm2_kwh_prod = 0;
+        $pm2_pemakaian = 0;
+        $pm2_sfc = 0;
+        $pm2 = PLTDPMZVResume::where('pltd_pm_unit_id', 1)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($pm2) > 0){
+            $pm2_ld = $pm2[0]->jam;
+            $pm2_kwh_prod = $pm2->sum('kwh_prod');
+            $pm2_pemakaian = $pm2->sum('pemakaian');
+            $pm2_sfc = $pm2->sum('sfc');
+        }
+		$pm2_data_chart = PLTDPMZVResume::where('pltd_pm_unit_id', 1)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        // PM 3
+        $pm3_ld = '-';
+        $pm3_kwh_prod = 0;
+        $pm3_pemakaian = 0;
+        $pm3_sfc = 0;
+        $pm3 = PLTDPMZVResume::where('pltd_pm_unit_id', 2)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($pm3) > 0){
+            $pm3_ld = $pm3[0]->jam;
+            $pm3_kwh_prod = $pm3->sum('kwh_prod');
+            $pm3_pemakaian = $pm3->sum('pemakaian');
+            $pm3_sfc = $pm3->sum('sfc');
+        }
+		$pm3_data_chart = PLTDPMZVResume::where('pltd_pm_unit_id', 2)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        // PM 4
+        $pm4_ld = '-';
+        $pm4_kwh_prod = 0;
+        $pm4_pemakaian = 0;
+        $pm4_sfc = 0;
+        $pm4 = PLTDPMZVResume::where('pltd_pm_unit_id', 3)->where('tanggal', $date)->orderBy('id','desc')->get();
+        if(count($pm4) > 0){
+            $pm4_ld = $pm4[0]->jam;
+            $pm4_kwh_prod = $pm4->sum('kwh_prod');
+            $pm4_pemakaian = $pm4->sum('pemakaian');
+            $pm4_sfc = $pm4->sum('sfc');
+        }
+		$pm4_data_chart = PLTDPMZVResume::where('pltd_pm_unit_id', 4)->where('tanggal', $date)->orderBy('id','asc')->get();
+
+        return view('pltd-pm.pm-home', compact(
+			'pm2_kwh_prod','pm2_pemakaian','pm2_sfc','pm2_data_chart',
+            'pm3_kwh_prod','pm3_pemakaian','pm3_sfc','pm3_data_chart',
+            'pm4_kwh_prod','pm4_pemakaian','pm4_sfc','pm4_data_chart',
+		));
     }
 
     public function zvExport(Request $r){

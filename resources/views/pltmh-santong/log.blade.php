@@ -237,7 +237,7 @@
                         "paging": true,
                         "pageLength": 100,
                         "lengthChange": false,
-                        "ordering": true,
+                        "ordering": false,
                         "data": data,
                         "autoWidth": false,
                         "responsive": true,

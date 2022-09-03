@@ -43,7 +43,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home-ebt', [HomeController::class, 'ebtDashboard'])->name('home-ebt');
 
 
 Route::group(['prefix' => 'pltd-amp', 'middleware' => 'auth'], function () {

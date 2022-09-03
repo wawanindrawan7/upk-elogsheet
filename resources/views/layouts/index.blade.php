@@ -68,14 +68,15 @@
             <a href="index.html">E Logsheet</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">St</a>
+            <a href="index.html">EL</a>
           </div>
           <ul class="sidebar-menu">
               <li class="menu-header">Dashboard</li>
               <li class="nav-item">
-                <a href="{{ url('home') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                <a href="{{ url('home') }}" class="nav-link"><i class="fas fa-fire"></i><span>PLTD</span></a>
+                <a href="{{ url('home-ebt') }}" class="nav-link"><i class="fas fa-fire"></i><span>EBT</span></a>
               </li>
-              <li class="menu-header">Starter</li>
+              <li class="menu-header">Pembangkit</li>
 
 
               <li><a class="nav-link" href="{{ url('pltd-amp') }}"><i class="fas fa-cogs"></i> <span>PLTD Ampenan</span></a></li>

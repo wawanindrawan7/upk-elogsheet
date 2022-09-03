@@ -2,15 +2,74 @@
 @section('section-header')
     DASHBOARD
 @endsection
+@section('css')
+<link rel="stylesheet" href="{{ asset('node_modules/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <style>
+        .modal-backdrop {
+            /* bug fix - no overlay */
+            display: none;
+        }
+
+        .modal {
+            /* bug fix - custom overlay */
+            background-color: rgba(10, 10, 10, 0.45);
+        }
+    </style>
+@endsection
 @section('content')
+
+<div class="modal fade" tabindex="-1" role="dialog" id="cari-modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form method="get" action="{{ url('home-ebt') }}">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Cari</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" id="date" readonly name="date" value="{{ date('Y-m-d') }}"
+                            class="form-control datepicker">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primaryt">Cari</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Grafik SFC Total PLTD</h4>
+                    <h4>Grafik Total Kwh Produksi EBT</h4>
+                    <div class="card-header-action">
+                        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#cari-modal"><i
+                                class="fa fa-calendar"></i> Cari</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div id="chartdiv" style="width: 100%;height: 500px;"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div id="gt_chart" style="width: 100%;height: 300px;"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="ga_chart" style="width: 100%;height: 300px;"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="gm_chart" style="width: 100%;height: 300px;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -359,12 +418,21 @@
     </div> --}}
 @endsection
 @section('js')
+<script src="{!! asset('node_modules/bootstrap-daterangepicker/daterangepicker.js') !!}"></script>
+<script src="{!! asset('assets/js/page/bootstrap-modal.js') !!}"></script>
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <script>
         var data_chart = @json($data_chart, JSON_PRETTY_PRINT);
-        loadGrafik('chartdiv', data_chart, "Grafik SFC PLTD")
+        var gt_data_chart = @json($gt_data_chart, JSON_PRETTY_PRINT);
+        var ga_data_chart = @json($ga_data_chart, JSON_PRETTY_PRINT);
+        var gm_data_chart = @json($gm_data_chart, JSON_PRETTY_PRINT);
+        loadGrafik('chartdiv', data_chart, "Grafik Kwh Produksi EBT")
+        loadGrafik('gt_chart', gt_data_chart, "Gili Trawangan")
+        loadGrafik('ga_chart', ga_data_chart, "Gili Air")
+        loadGrafik('gm_chart', gm_data_chart, "Gili Meno")
+
         function loadGrafik(div, datasoucre, title) {
             var dataChart = datasoucre
             console.log(dataChart)
@@ -378,6 +446,7 @@
                 chart.data = dataChart;
 
                 // Create category axis
+                // var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
                 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
                 categoryAxis.dataFields.category = "jam";
                 categoryAxis.renderer.opposite = true;
@@ -390,29 +459,32 @@
 
                 // Create series
                 var series1 = chart.series.push(new am4charts.LineSeries());
-                series1.dataFields.valueY = "sfc";
+                series1.dataFields.valueY = "energy_today";
                 series1.dataFields.categoryX = "jam";
-                series1.name = "SFC";
+                series1.name = "Energy Today";
                 series1.bullets.push(new am4charts.CircleBullet());
                 series1.tooltipText = "{name} : {valueY}";
                 series1.legendSettings.valueText = "{valueY}";
                 series1.stroke = am4core.color("#3318F2");
-                series1.fill = am4core.color("#3318F2");
+                series1.fill = am4core.color("#E94560");
                 series1.visible = false;
+                series1.strokeWidth = 1;
+                series1.fillOpacity = 0.5;
 
                 
 
                 // Add chart cursor
                 chart.cursor = new am4charts.XYCursor();
-                chart.cursor.behavior = "zoomY";
+                chart.cursor.behavior = "zoomX";
+                // chart.cursor.behavior = "zoomX";
 
                 let hs1 = series1.segments.template.states.create("hover")
                 hs1.properties.strokeWidth = 5;
                 series1.segments.template.strokeWidth = 1;
 
-                let hs2 = series2.segments.template.states.create("hover")
-                hs2.properties.strokeWidth = 5;
-                series2.segments.template.strokeWidth = 1;
+                // let hs2 = series2.segments.template.states.create("hover")
+                // hs2.properties.strokeWidth = 5;
+                // series2.segments.template.strokeWidth = 1;
 
                 // Add legend
                 chart.legend = new am4charts.Legend();

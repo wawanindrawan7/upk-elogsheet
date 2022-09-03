@@ -37,7 +37,7 @@ class PLTDPMZVGenLogController extends Controller
     {
         DB::beginTransaction();
         try {
-            $lb = PLTDPMZVGenLog::where('tanggal', date('Y-m-d'))->orderBy('id', 'desc')->where('pltd_pm_unit_id', $in->pltd_pm_unit_id)->first();
+            $lb = PLTDPMZVGenLog::orderBy('id', 'desc')->where('pltd_pm_unit_id', $in->pltd_pm_unit_id)->first();
 
             $log = new PLTDPMZVGenLog();
             $log->jam = $in['jam'];
@@ -70,16 +70,22 @@ class PLTDPMZVGenLogController extends Controller
                 $resume->pltd_pm_unit_id = $log->pltd_pm_unit_id;
                 $resume->jam = $log->jam;
                 $resume->tanggal = $log->tanggal;
-                $resume->kwh_prod_hsd = ($lb != null) ? ($log->kwh_produksi_hsd - $lb->kwh_produksi_hsd) : $log->kwh_produksi_hsd;
-                $resume->kwh_prod_mfo = ($lb != null) ? ($log->kwh_produksi_mfo - $lb->kwh_produksi_mfo) : $log->kwh_produksi_mfo;
+                $kwh_prod_hsd = ($lb != null) ? ($log->kwh_produksi_hsd - $lb->kwh_produksi_hsd) : $log->kwh_produksi_hsd;
+                $kwh_prod_mfo = ($lb != null) ? ($log->kwh_produksi_mfo - $lb->kwh_produksi_mfo) : $log->kwh_produksi_mfo;
+
+                $resume->kwh_prod_hsd = ($kwh_prod_hsd < 0) ? 0 : $kwh_prod_hsd;
+                $resume->kwh_prod_mfo = ($kwh_prod_mfo < 0) ? 0 : $kwh_prod_mfo;
                 $resume->kwh_prod = $resume->kwh_prod_hsd + $resume->kwh_prod_mfo;
                 $resume->save();
             } else {
                 $resume = PLTDPMZVResume::find($cek->id);
-                $resume->kwh_prod_hsd = ($lb != null) ? ($log->kwh_produksi_hsd - $lb->kwh_produksi_hsd) : $log->kwh_produksi_hsd;
-                $resume->kwh_prod_mfo = ($lb != null) ? ($log->kwh_produksi_mfo - $lb->kwh_produksi_mfo) : $log->kwh_produksi_mfo;
+                $kwh_prod_hsd = ($lb != null) ? ($log->kwh_produksi_hsd - $lb->kwh_produksi_hsd) : $log->kwh_produksi_hsd;
+                $kwh_prod_mfo = ($lb != null) ? ($log->kwh_produksi_mfo - $lb->kwh_produksi_mfo) : $log->kwh_produksi_mfo;
+
+                $resume->kwh_prod_hsd = ($kwh_prod_hsd < 0) ? 0 : $kwh_prod_hsd;
+                $resume->kwh_prod_mfo = ($kwh_prod_mfo < 0) ? 0 : $kwh_prod_mfo;
                 $resume->kwh_prod = $resume->kwh_prod_hsd + $resume->kwh_prod_mfo;
-                $resume->sfc = ($resume->pemakaian + $resume->hsd) / $resume->kwh_prod;
+                // $resume->sfc = ($resume->kwh_prod >= 0) ? ($resume->pemakaian + $resume->hsd) / $resume->kwh_prod : 0;
                 $resume->save();
             }
 

@@ -37,7 +37,7 @@ class PLTDZVEngLogController extends Controller
     {
         DB::beginTransaction();
         try {
-            $lb = PLTDZVEngLog::where('tanggal', date('Y-m-d'))->orderBy('id','desc')->where('pltd_unit_id', $in->pltd_unit_id)->first();
+            $lb = PLTDZVEngLog::orderBy('id','desc')->where('pltd_unit_id', $in->pltd_unit_id)->first();
 
             $log = new PLTDZVEngLog();
             $log->jam = $in['jam'];
@@ -128,13 +128,17 @@ class PLTDZVEngLogController extends Controller
                 $resume->jam = $log->jam;
                 $resume->tanggal = $log->tanggal;
                 $resume->pemakaian = $log->sikap_flow_meter_bahan_bakar_in - $log->sikap_flow_meter_bahan_bakar_return;
-                $resume->hsd = ($lb != null) ? ($log->sikap_flow_meter_bahan_bakar_hsd - $lb->sikap_flow_meter_bahan_bakar_hsd) : $log->sikap_flow_meter_bahan_bakar_hsd;
+
+                $hsd = ($lb != null) ? ($log->sikap_flow_meter_bahan_bakar_hsd - $lb->sikap_flow_meter_bahan_bakar_hsd) : $log->sikap_flow_meter_bahan_bakar_hsd;
+                $resume->hsd = ($hsd < 0) ? 0 : $hsd;
                 $resume->save();
             }else{
                 $resume = PLTDZVResume::find($cek->id);
                 $resume->pemakaian = $log->sikap_flow_meter_bahan_bakar_in - $log->sikap_flow_meter_bahan_bakar_return;
-                $resume->hsd = ($lb != null) ? ($log->sikap_flow_meter_bahan_bakar_hsd - $lb->sikap_flow_meter_bahan_bakar_hsd) : $log->sikap_flow_meter_bahan_bakar_hsd;
-                $resume->sfc = ($resume->pemakaian + $resume->hsd) / $resume->kwh_prod;
+                $hsd = ($lb != null) ? ($log->sikap_flow_meter_bahan_bakar_hsd - $lb->sikap_flow_meter_bahan_bakar_hsd) : $log->sikap_flow_meter_bahan_bakar_hsd;
+                
+                $resume->hsd = ($hsd < 0) ? 0 : $hsd;
+                // $resume->sfc = ($resume->kwh_prod >= 0) ? ($resume->pemakaian + $resume->hsd) / $resume->kwh_prod : 0;
                 $resume->save();
             }
             DB::commit();

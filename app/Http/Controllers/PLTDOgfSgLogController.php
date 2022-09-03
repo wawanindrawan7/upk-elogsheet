@@ -21,9 +21,9 @@ class PLTDOgfSgLogController extends Controller
 
 	public function loadData(Request $r){
 		if ($r->date != date('Y-m-d')) {
-            $log = PLTDOgfSgLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->where('tanggal', $r->date)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->get();
+            $log = PLTDOgfSgLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->where('tanggal', $r->date)->orderBy('tanggal', 'desc')->orderBy('id', 'desc')->get();
         } else {
-            $log = PLTDOgfSgLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->orderBy('tanggal', 'desc')->orderBy('jam', 'desc')->take(24)->get();
+            $log = PLTDOgfSgLog::with('users')->with('pltdUnit')->where('pltd_unit_id', $r->unit_id)->orderBy('tanggal', 'desc')->orderBy('id', 'desc')->take(24)->get();
         }
 
 		return compact('log');
