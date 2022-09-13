@@ -100,33 +100,39 @@ Route::get('plts/inverter/get-data', [LoginController::class, 'pltsInverter']);
 Route::get('plts/log', [PLTSLogsheetController::class, 'loadData']);
 Route::get('plts/log/detail', [PLTSLogsheetController::class, 'detail']);
 Route::post('plts/log/create', [PLTSLogsheetController::class, 'create']);
+Route::post('plts/log/edit', [PLTSLogsheetController::class, 'edit']);
 
 Route::get('plts-gm/inverter/get-data', [LoginController::class, 'pltsGmInverter']);
 
 Route::get('plts-gm/log', [PLTSGMLogsheetController::class, 'loadData']);
 Route::get('plts-gm/log/detail', [PLTSGMLogsheetController::class, 'detail']);
 Route::post('plts-gm/log/create', [PLTSGMLogsheetController::class, 'create']);
+Route::post('plts-gm/log/edit', [PLTSGMLogsheetController::class, 'edit']);
 
 Route::get('plts-ga/inverter/get-data', [LoginController::class, 'pltsGaInverter']);
 
 Route::get('plts-ga/log', [PLTSGALogsheetController::class, 'loadData']);
 Route::get('plts-ga/log/detail', [PLTSGALogsheetController::class, 'detail']);
 Route::post('plts-ga/log/create', [PLTSGALogsheetController::class, 'create']);
+Route::post('plts-ga/log/edit', [PLTSGALogsheetController::class, 'edit']);
 
 Route::get('pltmh-santong/generator/get-data', [LoginController::class, 'pltmhSantongGenerator']);
 
 Route::get('pltmh-santong/log', [PLTMHSantongLogsheetController::class, 'loadData']);
 Route::get('pltmh-santong/log/detail', [PLTMHSantongLogsheetController::class, 'detail']);
 Route::post('pltmh-santong/log/create', [PLTMHSantongLogsheetController::class, 'create']);
+Route::post('pltmh-santong/log/edit', [PLTMHSantongLogsheetController::class, 'edit']);
 
 Route::get('pltmh-pengga/generator/get-data', [LoginController::class, 'pltmhPenggaGenerator']);
 
 Route::get('pltmh-pengga/log', [PLTMHPenggaLogsheetController::class, 'loadData']);
 Route::get('pltmh-pengga/log/detail', [PLTMHPenggaLogsheetController::class, 'detail']);
 Route::post('pltmh-pengga/log/create', [PLTMHPenggaLogsheetController::class, 'create']);
+Route::post('pltmh-pengga/log/edit', [PLTMHPenggaLogsheetController::class, 'edit']);
 
 Route::get('pltmh-narmada/generator/get-data', [LoginController::class, 'pltmhNarmadaGenerator']);
 
 Route::get('pltmh-narmada/log', [PLTMHNarmadaLogsheetController::class, 'loadData']);
 Route::get('pltmh-narmada/log/detail', [PLTMHNarmadaLogsheetController::class, 'detail']);
 Route::post('pltmh-narmada/log/create', [PLTMHNarmadaLogsheetController::class, 'create']);
+Route::post('pltmh-narmada/log/edit', [PLTMHNarmadaLogsheetController::class, 'edit']);

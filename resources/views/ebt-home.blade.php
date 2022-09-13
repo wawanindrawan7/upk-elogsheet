@@ -51,24 +51,61 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Grafik Total Kwh Produksi EBT</h4>
+                    <h4>Grafik Total Kwh Produksi EBT {{ date('d-m-Y', strtotime($date)) }}</h4>
                     <div class="card-header-action">
                         <a href="#" class="btn btn-success" data-toggle="modal" data-target="#cari-modal"><i
                                 class="fa fa-calendar"></i> Cari</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="chartdiv" style="width: 100%;height: 500px;"></div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="gt_chart" style="width: 100%;height: 300px;"></div>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                aria-controls="home" aria-selected="true">PLTS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                aria-controls="profile" aria-selected="false">PLTMH</a>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div id="chartdiv" style="width: 100%;height: 500px;"></div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div id="gt_chart" style="width: 100%;height: 300px;"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="ga_chart" style="width: 100%;height: 300px;"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="gm_chart" style="width: 100%;height: 300px;"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <div id="ga_chart" style="width: 100%;height: 300px;"></div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="form-group">
+                                <label for="">Parameter</label>
+                                <select id="pltmh_param" class="form-control">
+                                    <option>Kwh Produksi</option>
+                                    <option>Beban</option>
+                                </select>
+                            </div>
+                            <div id="chartdiv_pltmh" style="width: 100%;height: 500px;"></div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div id="narmada_chart" style="width: 100%;height: 300px;"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="pengga_chart" style="width: 100%;height: 300px;"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="santong_chart" style="width: 100%;height: 300px;"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <div id="gm_chart" style="width: 100%;height: 300px;"></div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -428,12 +465,41 @@
         var gt_data_chart = @json($gt_data_chart, JSON_PRETTY_PRINT);
         var ga_data_chart = @json($ga_data_chart, JSON_PRETTY_PRINT);
         var gm_data_chart = @json($gm_data_chart, JSON_PRETTY_PRINT);
-        loadGrafik('chartdiv', data_chart, "Grafik Kwh Produksi EBT")
-        loadGrafik('gt_chart', gt_data_chart, "Gili Trawangan")
-        loadGrafik('ga_chart', ga_data_chart, "Gili Air")
-        loadGrafik('gm_chart', gm_data_chart, "Gili Meno")
+        
+        loadGrafik('chartdiv', data_chart,"Energy Today","energy_today", "Grafik Kwh Produksi EBT")
+        loadGrafik('gt_chart', gt_data_chart,"Energy Today","energy_today", "Gili Trawangan")
+        loadGrafik('ga_chart', ga_data_chart,"Energy Today","energy_today", "Gili Air")
+        loadGrafik('gm_chart', gm_data_chart,"Energy Today","energy_today", "Gili Meno")
+        
+        var pltmh_data_chart = @json($pltmh_data_chart, JSON_PRETTY_PRINT);
+        loadGrafik('chartdiv_pltmh', pltmh_data_chart,"Kwh Produksi","kwh_prod", "PLTMH")
 
-        function loadGrafik(div, datasoucre, title) {
+        var narmada_data_chart = @json($narmada_data_chart, JSON_PRETTY_PRINT);
+        loadGrafik('narmada_chart', narmada_data_chart,"Kwh Produksi","kwh_prod", "PLTMH Narmada")
+
+        var santong_data_chart = @json($santong_data_chart, JSON_PRETTY_PRINT);
+        loadGrafik('santong_chart', santong_data_chart,"Kwh Produksi","kwh_prod", "PLTMH Santong")
+
+        var pengga_data_chart = @json($pengga_data_chart, JSON_PRETTY_PRINT);
+        loadGrafik('pengga_chart', pengga_data_chart,"Kwh Produksi","kwh_prod", "PLTMH Pengga")
+
+        $(document).on('change','#pltmh_param', function(){
+            var param = $(this).val()
+            if(param === 'Kwh Produksi'){
+                loadGrafik('chartdiv_pltmh', pltmh_data_chart,"Kwh Produksi","kwh_prod", "PLTMH Total Kwh Produksi")
+                loadGrafik('narmada_chart', narmada_data_chart,"Kwh Produksi","kwh_prod", "PLTMH Narmada")
+                loadGrafik('santong_chart', santong_data_chart,"Kwh Produksi","kwh_prod", "PLTMH Santong")                
+                loadGrafik('pengga_chart', pengga_data_chart,"Kwh Produksi","kwh_prod", "PLTMH Pengga")
+            }else{
+                loadGrafik('chartdiv_pltmh', pltmh_data_chart,"Beban","beban", "PLTMH Total Beban")
+                loadGrafik('narmada_chart', narmada_data_chart,"Beban","beban", "PLTMH Narmada")
+                loadGrafik('santong_chart', santong_data_chart,"Beban","beban", "PLTMH Santong")
+                loadGrafik('pengga_chart', pengga_data_chart,"Beban","beban", "PLTMH Pengga")
+            }
+            console.log(param)
+        })
+
+        function loadGrafik(div, datasoucre,cat,value, title) {
             var dataChart = datasoucre
             console.log(dataChart)
             am4core.ready(function () {
@@ -459,16 +525,16 @@
 
                 // Create series
                 var series1 = chart.series.push(new am4charts.LineSeries());
-                series1.dataFields.valueY = "energy_today";
+                series1.dataFields.valueY = value;
                 series1.dataFields.categoryX = "jam";
-                series1.name = "Energy Today";
-                series1.bullets.push(new am4charts.CircleBullet());
+                series1.name = cat;
+                // series1.bullets.push(new am4charts.CircleBullet());
                 series1.tooltipText = "{name} : {valueY}";
                 series1.legendSettings.valueText = "{valueY}";
                 series1.stroke = am4core.color("#3318F2");
-                series1.fill = am4core.color("#E94560");
+                series1.fill = am4core.color("#4F5771");
                 series1.visible = false;
-                series1.strokeWidth = 1;
+                series1.strokeWidth = 0.5;
                 series1.fillOpacity = 0.5;
 
                 
@@ -504,5 +570,7 @@
 
             })
         }
+
+        
     </script>
 @endsection

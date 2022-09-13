@@ -109,7 +109,7 @@ class PLTDNiigataEngLogController extends Controller
             $resume->pltd_unit_id = $log->pltd_unit_id;
             $resume->jam = $log->jam;
             $resume->tanggal = $log->tanggal;
-            $resume->pemakaian = $log->stand_flow_meter_mfo_in - $log->stand_flow_meter_mfo_return;
+            $resume->pemakaian = ($log->stand_flow_meter_mfo_in - $lb->stand_flow_meter_mfo_in) - ($log->stand_flow_meter_mfo_return - $lb->stand_flow_meter_mfo_return);
             $hsd = ($lb != null) ? ($log->sikap_flow_meter_bahan_bakar_hsd - $lb->sikap_flow_meter_bahan_bakar_hsd) : $log->sikap_flow_meter_bahan_bakar_hsd;
             $resume->hsd = ($hsd < 0) ? 0 : $hsd;
 

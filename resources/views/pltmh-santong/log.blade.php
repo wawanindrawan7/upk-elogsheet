@@ -72,7 +72,7 @@
                                     <td rowspan="3">Time Check</td>
                                     <td rowspan="3">Tek.Air Turbin</td>
                                     <td rowspan="3">Gen.Speed</td>
-                                    <td colspan="27" align="center">Panel Generator</td>
+                                    <td colspan="29" align="center">Panel Generator</td>
                                     <td rowspan="4" valign="buttom">Operator</td>
                                     <td rowspan="4" valign="buttom">Keterangan</td>
                                 </tr>
@@ -86,10 +86,9 @@
                                     <td colspan="2" align="center">Kwh Line</td>
                                     <td colspan="2" align="center">Kwh Produksi</td>
                                     <td colspan="9" align="center">Temperatur</td>
-                                    <td rowspan="2" align="center">Level Air</td>
+                                    <td colspan="3" align="center">Level Air</td>
                                     <td rowspan="2" align="center">Debit</td>
                                     <td rowspan="2" align="center">Kwh PS</td>
-
                                 </tr>
                                 <tr bgcolor="#E9E7E7">
                                     <td align="center">RS</td>
@@ -113,6 +112,9 @@
                                     <td align="center">Winding 4</td>
                                     <td align="center">Winding 5</td>
                                     <td align="center">Winding 6</td>
+                                    <td align="center">Intake</td>
+                                    <td align="center">Head Tank</td>
+                                    <td align="center">Tail Race</td>
                                 </tr>
                                 <tr bgcolor="#E9E7E7">
                                     <td align="center"></td>
@@ -130,7 +132,7 @@
                                     <td colspan="2" align="center">(KWH)</td>
                                     <td colspan="2" align="center">(KWH)</td>
                                     <td colspan="9" align="center">(C)</td>
-                                    <td align="center">(m)</td>
+                                    <td colspan="3" align="center">(m)</td>
                                     <td align="center">(m3/det)</td>
                                     <td></td>
                                 </tr>
@@ -223,12 +225,14 @@
                             d.temp_winding_4,
                             d.temp_winding_5,
                             d.temp_winding_6,
-                            d.level_air,
+                            d.level_air_intake,
+                            d.level_air_head_tank,
+                            d.level_air_tail_race,
                             d.debit,
                             d.kwh_ps,
                             d.users.name,
                             d.ket,
-
+                            
                         ])
                     })
 

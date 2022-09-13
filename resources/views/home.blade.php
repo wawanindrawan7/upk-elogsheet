@@ -14,6 +14,27 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div id="chartdiv_amp2" style="width: 100%;height: 300px;"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="chartdiv_amp3" style="width: 100%;height: 300px;"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="chartdiv_amp4" style="width: 100%;height: 300px;"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="chartdiv_amp5" style="width: 100%;height: 300px;"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="chartdiv_amp6" style="width: 100%;height: 300px;"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="chartdiv_amp7" style="width: 100%;height: 300px;"></div>
+        </div>
+        <div class="col-md-4">
+            <div id="chartdiv_amp8" style="width: 100%;height: 300px;"></div>
+        </div>
     </div>
     {{-- <div class="row">
         <div class="col-md-6">
@@ -364,7 +385,24 @@
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
     <script>
         var data_chart = @json($data_chart, JSON_PRETTY_PRINT);
-        loadGrafik('chartdiv', data_chart, "Grafik SFC PLTD")
+        var data_chart_amp2 = @json($data_chart_amp2, JSON_PRETTY_PRINT);
+        var data_chart_amp3 = @json($data_chart_amp3, JSON_PRETTY_PRINT);
+        var data_chart_amp4 = @json($data_chart_amp4, JSON_PRETTY_PRINT);
+        var data_chart_amp5 = @json($data_chart_amp5, JSON_PRETTY_PRINT);
+        var data_chart_amp6 = @json($data_chart_amp6, JSON_PRETTY_PRINT);
+        var data_chart_amp7 = @json($data_chart_amp7, JSON_PRETTY_PRINT);
+        var data_chart_amp8 = @json($data_chart_amp8, JSON_PRETTY_PRINT);
+
+        loadGrafik('chartdiv', data_chart, "Grafik SFC PLTD {{ $date }}")
+        loadGrafik('chartdiv_amp2', data_chart_amp2, "Grafik SFC PLTD AMP #2 {{ $date }}")
+        loadGrafik('chartdiv_amp3', data_chart_amp3, "Grafik SFC PLTD AMP #3 {{ $date }}")
+        loadGrafik('chartdiv_amp4', data_chart_amp4, "Grafik SFC PLTD AMP #4 {{ $date }}")
+        loadGrafik('chartdiv_amp5', data_chart_amp5, "Grafik SFC PLTD AMP #5 {{ $date }}")
+        loadGrafik('chartdiv_amp6', data_chart_amp6, "Grafik SFC PLTD AMP #6 {{ $date }}")
+        loadGrafik('chartdiv_amp7', data_chart_amp7, "Grafik SFC PLTD AMP #7 {{ $date }}")
+        loadGrafik('chartdiv_amp8', data_chart_amp8, "Grafik SFC PLTD AMP #8 {{ $date }}")
+        
+
         function loadGrafik(div, datasoucre, title) {
             var dataChart = datasoucre
             console.log(dataChart)
@@ -393,12 +431,13 @@
                 series1.dataFields.valueY = "sfc";
                 series1.dataFields.categoryX = "jam";
                 series1.name = "SFC";
-                series1.bullets.push(new am4charts.CircleBullet());
                 series1.tooltipText = "{name} : {valueY}";
                 series1.legendSettings.valueText = "{valueY}";
                 series1.stroke = am4core.color("#3318F2");
-                series1.fill = am4core.color("#3318F2");
+                series1.fill = am4core.color("#4F5771");
                 series1.visible = false;
+                series1.strokeWidth = 2;
+                // series1.fillOpacity = 0.5;
 
                 
 
@@ -410,9 +449,7 @@
                 hs1.properties.strokeWidth = 5;
                 series1.segments.template.strokeWidth = 1;
 
-                let hs2 = series2.segments.template.states.create("hover")
-                hs2.properties.strokeWidth = 5;
-                series2.segments.template.strokeWidth = 1;
+               
 
                 // Add legend
                 chart.legend = new am4charts.Legend();

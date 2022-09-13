@@ -42,7 +42,7 @@ class PLTMHNarmadaLogsheetController extends Controller
 
         DB::beginTransaction();
         try {
-            $lb = PLTMHNarmadaLogsheet::orderBy('id','desc')->first();
+            
 
             $log = new PLTMHNarmadaLogsheet();
             $log->jam = $in['jam'];
@@ -76,13 +76,55 @@ class PLTMHNarmadaLogsheetController extends Controller
             $log->users_id = $in['users_id'];
             $log->save();
 
-            $resume = new PLTMHNarmadaResume();
-            $resume->pltmh_narmada_logsheet_id = $log->id;
-            $resume->tanggal = $log->tanggal;
-            $resume->jam = $log->jam;
-            $resume->kwh_produksi = ($lb != null) ? ($log->kwh_prod_exp - $lb->kwh_prod_exp) : $log->kwh_prod_exp;
-            $resume->kwh_ps = ($lb != null) ? ($log->kwh_ps - $lb->kwh_ps) : $log->kwh_ps;
-            $resume->save();
+
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return $th->getMessage();
+        }
+        
+    }
+
+    public function edit(Request $in)
+    {
+
+        DB::beginTransaction();
+        try {
+            
+
+            $log = PLTMHNarmadaLogsheet::find($in->id);
+            $log->jam = $in['jam'];
+            $log->tanggal = $in['tanggal'];
+            $log->real_time = date("Y-m-d H:i:s");
+            $log->tek_air_turbin = $in['tek_air_turbin'];
+            $log->gen_speed = $in['gen_speed'];
+            $log->vol_gen_rs = $in['vol_gen_rs'];
+            $log->vol_gen_st = $in['vol_gen_st'];
+            $log->vol_gen_tr = $in['vol_gen_tr'];
+            $log->arus_gen_r = $in['arus_gen_r'];
+            $log->arus_gen_s = $in['arus_gen_s'];
+            $log->arus_gen_t = $in['arus_gen_t'];
+            $log->beban = $in['beban'];
+            $log->cos_q = $in['cos_q'];
+            $log->freq = $in['freq'];
+            $log->excit_teg = $in['excit_teg'];
+            $log->excit_arus = $in['excit_arus'];
+            $log->kwh_prod_exp = $in['kwh_prod_exp'];
+            $log->kwh_prod_imp = $in['kwh_prod_imp'];
+            $log->temp_bearing_1 = $in['temp_bearing_1'];
+            $log->temp_bearing_2 = $in['temp_bearing_2'];
+            $log->temp_gear_box = $in['temp_gear_box'];
+            $log->temp_wind_gen = $in['temp_wind_gen'];
+            $log->level_air = $in['level_air'];
+            $log->debit_air = $in['debit_air'];
+            $log->debit = $in['debit'];
+            $log->kwh_ps = $in['kwh_ps'];
+            $log->ket = $in['ket'];
+            $log->save();
+
+            
 
             DB::commit();
             return 'success';
