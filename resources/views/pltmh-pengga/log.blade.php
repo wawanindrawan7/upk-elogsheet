@@ -184,7 +184,7 @@
                     var data = []
                     $.each(r.log, function(i, d) {
                         data.push([
-                            // (i+1),
+                            '',
                             d.jam,
                             d.real_time,
                             d.tek_air_turbin,
@@ -210,7 +210,7 @@
                             d.debit,
                             d.kwh_ps,
                             d.ket,
-                            ''
+                            
                         ])
                     })
 

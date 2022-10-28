@@ -48,52 +48,64 @@ Route::get('pltd-amp/unit/get-data', [LoginController::class, 'unit']);
 Route::get('pltd-amp/niigata/gen-log', [PLTDNiigataGenLogController::class, 'loadData']);
 Route::get('pltd-amp/niigata/gen-log/detail', [PLTDNiigataGenLogController::class, 'detail']);
 Route::post('pltd-amp/niigata/gen-log/create', [PLTDNiigataGenLogController::class, 'create']);
+Route::post('pltd-amp/niigata/gen-log/edit', [PLTDNiigataGenLogController::class, 'edit']);
 
 Route::get('pltd-amp/niigata/eng-log', [PLTDNiigataEngLogController::class, 'loadData']);
 Route::get('pltd-amp/niigata/eng-log/detail', [PLTDNiigataEngLogController::class, 'detail']);
 Route::post('pltd-amp/niigata/eng-log/create', [PLTDNiigataEngLogController::class, 'create']);
+Route::post('pltd-amp/niigata/eng-log/edit', [PLTDNiigataEngLogController::class, 'edit']);
 
 Route::get('pltd-amp/zv/eng-log', [PLTDZVEngLogController::class, 'loadData']);
 Route::get('pltd-amp/zv/eng-log/detail', [PLTDZVEngLogController::class, 'detail']);
 Route::post('pltd-amp/zv/eng-log/create', [PLTDZVEngLogController::class, 'create']);
+Route::post('pltd-amp/zv/eng-log/edit', [PLTDZVEngLogController::class, 'edit']);
 
 Route::get('pltd-amp/zv/gen-log', [PLTDZVGenLogController::class, 'loadData']);
 Route::get('pltd-amp/zv/gen-log/detail', [PLTDZVGenLogController::class, 'detail']);
 Route::post('pltd-amp/zv/gen-log/create', [PLTDZVGenLogController::class, 'create']);
+Route::post('pltd-amp/zv/gen-log/edit', [PLTDZVGenLogController::class, 'edit']);
 
 Route::get('pltd-amp/zav/eng-log', [PLTDZAVEngLogController::class, 'loadData']);
 Route::get('pltd-amp/zav/eng-log/detail', [PLTDZAVEngLogController::class, 'detail']);
 Route::post('pltd-amp/zav/eng-log/create', [PLTDZAVEngLogController::class, 'create']);
+Route::post('pltd-amp/zav/eng-log/edit', [PLTDZAVEngLogController::class, 'edit']);
 
 Route::get('pltd-amp/zav/gen-log', [PLTDZAVGenLogController::class, 'loadData']);
 Route::get('pltd-amp/zav/gen-log/detail', [PLTDZAVGenLogController::class, 'detail']);
 Route::post('pltd-amp/zav/gen-log/create', [PLTDZAVGenLogController::class, 'create']);
+Route::post('pltd-amp/zav/gen-log/edit', [PLTDZAVGenLogController::class, 'edit']);
 
 Route::get('pltd-amp/zav/cmr-log', [PLTDZAVCmrLogController::class, 'loadData']);
 Route::get('pltd-amp/zav/cmr-log/detail', [PLTDZAVCmrLogController::class, 'detail']);
 Route::post('pltd-amp/zav/cmr-log/create', [PLTDZAVCmrLogController::class, 'create']);
+Route::post('pltd-amp/zav/cmr-log/edit', [PLTDZAVCmrLogController::class, 'edit']);
 
 Route::get('pltd-amp/ogf/cr-log', [PLTDOgfCrLogController::class, 'loadData']);
 Route::get('pltd-amp/ogf/cr-log/detail', [PLTDOgfCrLogController::class, 'detail']);
 Route::post('pltd-amp/ogf/cr-log/create', [PLTDOgfCrLogController::class, 'create']);
+Route::post('pltd-amp/ogf/cr-log/edit', [PLTDOgfCrLogController::class, 'edit']);
 
 Route::get('pltd-amp/ogf/sg-log', [PLTDOgfSgLogController::class, 'loadData']);
 Route::get('pltd-amp/ogf/sg-log/detail', [PLTDOgfSgLogController::class, 'detail']);
 Route::post('pltd-amp/ogf/sg-log/create', [PLTDOgfSgLogController::class, 'create']);
+Route::post('pltd-amp/ogf/sg-log/edit', [PLTDOgfSgLogController::class, 'edit']);
 
 Route::get('pltd-pm/unit/get-data', [LoginController::class, 'pltdPmUnit']);
 
 Route::get('pltd-pm/zv/gen-log', [PLTDPMZVGenLogController::class, 'loadData']);
 Route::get('pltd-pm/zv/gen-log/detail', [PLTDPMZVGenLogController::class, 'detail']);
 Route::post('pltd-pm/zv/gen-log/create', [PLTDPMZVGenLogController::class, 'create']);
+Route::post('pltd-pm/zv/gen-log/edit', [PLTDPMZVGenLogController::class, 'edit']);
 
 Route::get('pltd-pm/zv/eng-log', [PLTDPMZVEngLogController::class, 'loadData']);
 Route::get('pltd-pm/zv/eng-log/detail', [PLTDPMZVEngLogController::class, 'detail']);
 Route::post('pltd-pm/zv/eng-log/create', [PLTDPMZVEngLogController::class, 'create']);
+Route::post('pltd-pm/zv/eng-log/edit', [PLTDPMZVEngLogController::class, 'edit']);
 
 Route::get('pltd-pm/ogf-log', [PLTDPMOgfLogController::class, 'loadData']);
 Route::get('pltd-pm/ogf-log/detail', [PLTDPMOgfLogController::class, 'detail']);
 Route::post('pltd-pm/ogf-log/create', [PLTDPMOgfLogController::class, 'create']);
+Route::post('pltd-pm/ogf-log/edit', [PLTDPMOgfLogController::class, 'edit']);
 
 Route::get('plts/inverter/get-data', [LoginController::class, 'pltsInverter']);
 

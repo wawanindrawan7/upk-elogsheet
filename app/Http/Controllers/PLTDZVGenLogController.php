@@ -102,4 +102,48 @@ class PLTDZVGenLogController extends Controller
         }
         return 'success';
     }
+
+    public function edit(Request $in)
+    {
+        DB::beginTransaction();
+        try {
+            
+
+            $log = PLTDZVGenLog::find($in->id);
+            $log->jam = $in['jam'];
+            $log->tanggal = $in['tanggal'];
+            // $log->pltd_unit_id = $in['pltd_unit_id'];
+            $log->teg = $in['teg'];
+            $log->freq = $in['freq'];
+            $log->faktor_daya = $in['faktor_daya'];
+            $log->daya_semu = $in['daya_semu'];
+            $log->beban = $in['beban'];
+            $log->arus_r = $in['arus_r'];
+            $log->arus_s = $in['arus_s'];
+            $log->arus_t = $in['arus_t'];
+            $log->penguat = $in['penguat'];
+            $log->winding_1 = $in['winding_1'];
+            $log->winding_2 = $in['winding_2'];
+            $log->winding_3 = $in['winding_3'];
+            $log->bearing = $in['bearing'];
+            $log->kwh_produksi_hsd = $in['kwh_produksi_hsd'];
+            $log->kwh_produksi_mfo = $in['kwh_produksi_mfo'];
+            $log->kwh_alat_bantu = $in['kwh_alat_bantu'];
+            $log->level_becoms = $in['level_becoms'];
+            $log->time_check = date("Y-m-d H:i:s");
+            // $log->tanggal = date("Y-m-d");
+            // $log->users_id = $in['users_id'];
+            // $log->pltd_pl_id = $in['pl_id'];
+            $log->save();
+
+            
+            DB::commit();
+            return 'success';
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return $th->getMessage();
+        }
+        return 'success';
+    }
 }

@@ -149,7 +149,7 @@
                     {{-- <input type="hidden" id="unit_id" name="unit_id"> --}}
                     <div class="form-group">
                         <label>Date</label>
-                        <input type="text" id="date" readonly name="date" value="{{ date('Y-m-d') }}"
+                        <input type="text" id="exp_date" readonly name="date" value="{{ date('Y-m-d') }}"
                             class="form-control datepicker">
                     </div>
                 </div>
@@ -241,7 +241,7 @@
 
         $(document).on('click', '.btn-submit-export', function(e) {
             e.preventDefault()
-            url = "{{ url('pltmh-narmada/log/export') }}" + '?date=' + $('#date').val()
+            url = "{{ url('pltmh-narmada/log/export') }}" + '?date=' + $('#exp_date').val()
             $('#export-modal').modal('hide')
             window.location.href = url
         })

@@ -198,10 +198,14 @@ class HomeController extends Controller
 
             $g1_data = ($g1 != null && $g1->energy_today >= 0) ? ($g1->energy_today - $gt1_awal) : 0;
             $g1_data = ($g1_data >= 0) ? $g1_data : 0;
+            $g1_gp = ($g1 != null) ? $g1->gen_power : 0;
             $g2_data = ($g2 != null && $g2->energy_today >= 0) ? ($g2->energy_today - $gt2_awal) : 0;
             $g2_data = ($g2_data >= 0) ? $g2_data : 0;
+            $g2_gp = ($g2 != null) ? $g2->gen_power : 0;
             $g3_data = ($g3 != null && $g3->energy_today >= 0) ? ($g3->energy_today - $gt3_awal) : 0;
             $g3_data = ($g3_data >= 0) ? $g3_data : 0;
+            $g3_gp = ($g3 != null) ? $g3->gen_power : 0;
+
 
             $gt1_awal = ($g1 != null) ? $g1->energy_today : 0;
             $gt2_awal = ($g2 != null) ? $g2->energy_today : 0;
@@ -210,36 +214,43 @@ class HomeController extends Controller
 
             $ga1_data = ($ga1 != null && $ga1->energy_today >= 0) ? ($ga1->energy_today - $ga1_awal) : 0;
             $ga1_data = ($ga1_data >= 0) ? $ga1_data : 0;
+            $ga1_gp = ($ga1 != null) ? $ga1->gen_power : 0;
             $ga2_data = ($ga2 != null && $ga2->energy_today >= 0) ? ($ga2->energy_today - $ga2_awal) : 0;
             $ga2_data = ($ga2_data >= 0) ? $ga2_data : 0;
+            $ga2_gp = ($ga2 != null) ? $ga2->gen_power : 0;
 
             $ga1_awal = ($ga1 != null) ? $ga1->energy_today : 0;
             $ga2_awal = ($ga2 != null) ? $ga2->energy_today : 0;
 
             $gm1_data = ($gm1 != null && $gm1->energy_today >= 0) ? ($gm1->energy_today - $gm1_awal) : 0;
             $gm1_data = ($gm1_data >= 0) ? $gm1_data : 0;
+            $gm1_gp = ($gm1 != null) ? $gm1->gen_power : 0;
 
             $gm1_awal = ($gm1 != null) ? $gm1->energy_today : 0;
 
 
             array_push($gt_data_chart, array(
                 'jam' => $j,
-                'energy_today' => ($g1_data + $g2_data + $g3_data)
+                'energy_today' => ($g1_data + $g2_data + $g3_data),
+                'gen_power' => ($g1_gp + $g2_gp + $g3_gp),
             ));
 
             array_push($ga_data_chart, array(
                 'jam' => $j,
-                'energy_today' => ($ga1_data + $ga2_data)
+                'energy_today' => ($ga1_data + $ga2_data),
+                'gen_power' => ($ga1_gp + $ga2_gp),
             ));
 
             array_push($gm_data_chart, array(
                 'jam' => $j,
-                'energy_today' => ($gm1_data)
+                'energy_today' => ($gm1_data),
+                'gen_power' => $gm1_gp,
             ));
 
             array_push($data_chart, array(
                 'jam' => $j,
-                'energy_today' => ($g1_data + $g2_data + $g3_data + $ga1_data + $ga2_data + $gm1_data)
+                'energy_today' => ($g1_data + $g2_data + $g3_data + $ga1_data + $ga2_data + $gm1_data),
+                'gen_power' => ($g1_gp + $g2_gp + $g3_gp + $ga1_gp + $ga2_gp + $gm1_gp)
             ));
 
             // ------------------ PLTMH ---------------------
